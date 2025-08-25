@@ -22,7 +22,7 @@ Users can:
 
 ---
 
-## 🌟 Key Features
+## 🌟 Future Features
 - **Chatbot Assistant**: helps users quickly find the right category and discover recommendations.  
 - **Ratings & Comments**: users can share pros and cons about each place/product.  
 - **Points System (Gamification)**:  
@@ -31,7 +31,7 @@ Users can:
 
 ---
 
-## 🚀 Future Features
+## 🚀 Key Features
 We are planning to add more features, such as:
 - 📍 **Map Integration** → show nearby recommendations directly on a map.  
 - 📲 **Social Sharing** → share recommendations with friends.  
