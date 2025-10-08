@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:rash7ly/features/auth/presentation/pages/register/register_screen.dart';
 
 class Routes {
   static const String splash = '/';
@@ -8,14 +9,12 @@ class Routes {
   static const String signIn = '/signIn';
   static const String signUp = '/singUp';
   static const String forgetPassword = '/forgetPassword';
-  static const String verification='/verification';
-  static const String home='/home';
+  static const String verification = '/verification';
+  static const String home = '/home';
 
   static final routes = GoRouter(
     routes: [
-      // GoRoute(path:, builder: (context, state) => ),
-      // ظبط بقي انت علي حسب ال برانش بتاعك  (تعبت)🤨 
-      
+      GoRoute(path: signUp, builder: (context, state) => RegisterScreen()),
     ],
   );
 }
