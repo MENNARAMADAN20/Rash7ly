@@ -6,7 +6,11 @@ class TextStyles {
     double? fontSize,
     FontWeight? fontWeight,
   }) {
-    return TextStyle(fontSize: fontSize ?? 30, color: color);
+    return TextStyle(
+      fontSize: fontSize ?? 30,
+      color: color,
+      fontWeight: fontWeight ?? FontWeight.normal,
+    );
   }
 
   static TextStyle getSize24({
@@ -14,7 +18,11 @@ class TextStyles {
     double? fontSize,
     FontWeight? fontWeight,
   }) {
-    return TextStyle(fontSize: fontSize ?? 24, color: color);
+    return TextStyle(
+      fontSize: fontSize ?? 24,
+      color: color,
+      fontWeight: fontWeight ?? FontWeight.normal,
+    );
   }
 
   static TextStyle getSize20({
@@ -22,7 +30,11 @@ class TextStyles {
     double? fontSize,
     FontWeight? fontWeight,
   }) {
-    return TextStyle(fontSize: fontSize ?? 20, color: color);
+    return TextStyle(
+      fontSize: fontSize ?? 20,
+      color: color,
+      fontWeight: fontWeight ?? FontWeight.normal,
+    );
   }
 
   static TextStyle getSize18({
@@ -30,7 +42,11 @@ class TextStyles {
     double? fontSize,
     FontWeight? fontWeight,
   }) {
-    return TextStyle(fontSize: fontSize ?? 18, color: color);
+    return TextStyle(
+      fontSize: fontSize ?? 18,
+      color: color,
+      fontWeight: fontWeight ?? FontWeight.normal,
+    );
   }
 
   static TextStyle getSize16({
@@ -38,7 +54,11 @@ class TextStyles {
     double? fontSize,
     FontWeight? fontWeight,
   }) {
-    return TextStyle(fontSize: fontSize ?? 16, color: color);
+    return TextStyle(
+      fontSize: fontSize ?? 16,
+      color: color,
+      fontWeight: fontWeight ?? FontWeight.normal,
+    );
   }
 
   static TextStyle getSize12({
@@ -46,6 +66,10 @@ class TextStyles {
     double? fontSize,
     FontWeight? fontWeight,
   }) {
-    return TextStyle(fontSize: fontSize ?? 12, color: color);
+    return TextStyle(
+      fontSize: fontSize ?? 12,
+      color: color,
+      fontWeight: fontWeight ?? FontWeight.normal,
+    );
   }
 }

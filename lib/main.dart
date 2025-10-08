@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rash7ly/core/utilis/app_theme.dart';
+import 'package:rash7ly/features/auth/presentation/pages/login/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,8 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-
-      // home:
+      home: LoginScreen(),
     );
   }
 }
