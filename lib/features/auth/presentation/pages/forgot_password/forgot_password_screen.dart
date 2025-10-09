@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:rash7ly/components/appbar/arrow_back_app_bar.dart';
 import 'package:rash7ly/components/buttons/main_button.dart';
-import 'package:rash7ly/core/utilis/app_colors.dart';
-import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/components/formfields/auth_form_field.dart';
+import 'package:rash7ly/core/routes/navigation.dart';
+import 'package:rash7ly/core/routes/routes.dart';
 import 'package:rash7ly/features/auth/presentation/widgets/header_text.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
@@ -16,39 +17,35 @@ class ForgotPasswordScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.blackColor),
-          onPressed: () => Navigator.pop(context),
-        ),
+        leading: ArrowBackAppBar(),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              children: [
-                const HeaderText(
-                  title: 'Forgot password',
-                  subtitle: 'Enter your email to receive reset instructions',
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            children: [
+              const SizedBox(height: 50),
+              HeaderText(
+                title: 'Forgot password',
+                subtitle: 'Enter your email to receive reset instructions',
+              ),
+              const SizedBox(height: 50),
+              Form(
+                child: Column(
+                  children: [
+                    AuthFormField(controller: emailController, hint: 'Email'),
+                    const SizedBox(height: 65),
+                    MainButton(
+                      onPressed: () {
+                        pushTo(context, Routes.otp);
+                      },
+                      text: 'Reset Password',
+                      height: 65,
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 50),
-                Form(
-                  child: Column(
-                    children: [
-                      AuthFormField(controller: emailController, hint: 'Email'),
-                      const SizedBox(height: 65),
-                      MainButton(
-                        onPressed: () {
-                          // trigger forgot password flow
-                        },
-                        text: 'Reset Password',
-                        height: 56,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

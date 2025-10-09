@@ -9,11 +9,13 @@ class MainButton extends StatelessWidget {
     this.width = double.infinity,
     this.height = 56,
     required this.onPressed,
+    this.style,
   });
   final String text;
   final double width;
   final double height;
   final Function() onPressed;
+  final TextStyle? style;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,15 @@ class MainButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(text, style: TextStyles.getSize16(color: Colors.white)),
+        child: Text(
+          text,
+          style:
+              style ??
+              TextStyles.getSize18(
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.w600,
+              ),
+        ),
       ),
     );
   }
