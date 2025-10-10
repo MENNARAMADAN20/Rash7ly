@@ -7,6 +7,8 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.whiteColor,
     fontFamily: 'Poppins',
     inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: AppColors.lightGreyColor,
       hintStyle: TextStyles.getSize16(color: AppColors.greyColor),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: AppColors.lightGreyColor),

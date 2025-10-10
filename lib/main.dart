@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rash7ly/core/routes/routes.dart';
 import 'package:rash7ly/core/utilis/app_theme.dart';
 
 void main() {
@@ -10,12 +11,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-
-      // home:
+      routerConfig: Routes.routes,
     );
   }
 }
