@@ -82,7 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
           const SizedBox(height: 50),
-          MainButton(onPressed: () {}, text: 'Sign in', height: 65),
+          MainButton(onPressed: () {pushWithReplacement(context, Routes.home);}, text: 'Sign in', height: 65), 
           const SizedBox(height: 50),
           signinText(context),
           const SizedBox(height: 60),
