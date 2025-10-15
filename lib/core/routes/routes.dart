@@ -4,8 +4,10 @@ import 'package:rash7ly/features/auth/presentation/pages/forgot_password/forgot_
 import 'package:rash7ly/features/auth/presentation/pages/login/login_screen.dart';
 import 'package:rash7ly/features/auth/presentation/pages/otp/otp_screen.dart';
 import 'package:rash7ly/features/auth/presentation/pages/register/register_screen.dart';
-import 'package:rash7ly/features/home/presentation/card_details/card_details.dart';
+import 'package:rash7ly/features/home/presentation/categories/categories_screen.dart';
+import 'package:rash7ly/features/home/presentation/categories/category_type_screen.dart';
 import 'package:rash7ly/features/home/presentation/home/home_screen.dart';
+import 'package:rash7ly/features/home/presentation/saved_places/savedplaces_screen.dart';
 import 'package:rash7ly/features/home/presentation/search/search_screen.dart';
 
 
@@ -19,7 +21,10 @@ class Routes {
   static const String forgetPassword = '/forgetPassword';
   static const String otp = '/otp';
   static const String home = '/home';
-  static const String profileScreen = '/profile_screen';
+  static const String search = '/search';
+  static const String categories = '/categories';
+  static const String categoryType = '/categorytype';
+  static const String savedplaces = '/savedplaces';
 
   static final routes = GoRouter(
     routes: [
@@ -30,8 +35,23 @@ class Routes {
       ),
       GoRoute(path: signIn, builder: (context, state) => LoginScreen()),
       GoRoute(path: otp, builder: (context, state) => OtpScreen()),
-     // GoRoute(path: splash, builder: (context, state) => const CardDetails()),
-     GoRoute(path: splash, builder: (context, state) => const ProfileScreen()),
+      GoRoute(path: home, builder: (context, state) => HomeScreen()),
+      GoRoute(path: search, builder: (context, state) => SearchScreen()),
+      GoRoute(
+        path: categories,
+        builder: (context, state) => CategoriesScreen(),
+      ),
+      GoRoute(
+        path: categoryType,
+        builder: (context, state) {
+          final String title = state.extra.toString();
+          return CategoryTypeScreen(title: title);
+        },
+      ),
+      GoRoute(
+        path: savedplaces,
+        builder: (context, state) => SavedplacesScreen(),
+      ),
     ],
   );
 }

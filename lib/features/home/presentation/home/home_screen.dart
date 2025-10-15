@@ -92,21 +92,24 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    AppAssets.categoriesSvg,
-                    colorFilter: ColorFilter.mode(
-                      AppColors.greyColor,
-                      BlendMode.srcIn,
+              GestureDetector(
+                onTap: () => pushTo(context, Routes.categories), // ibrahim edit
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      AppAssets.categoriesSvg,
+                      colorFilter: ColorFilter.mode(
+                        AppColors.greyColor,
+                        BlendMode.srcIn,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "Categories",
-                    style: TextStyles.getSize12(color: AppColors.greyColor),
-                  ),
-                ],
+                    Text(
+                      "Categories",
+                      style: TextStyles.getSize12(color: AppColors.greyColor),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(width: 40),
               GestureDetector(
