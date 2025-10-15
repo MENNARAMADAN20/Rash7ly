@@ -5,6 +5,9 @@ import 'package:rash7ly/features/auth/presentation/pages/login/login_screen.dart
 import 'package:rash7ly/features/auth/presentation/pages/otp/otp_screen.dart';
 import 'package:rash7ly/features/auth/presentation/pages/register/register_screen.dart';
 import 'package:rash7ly/features/home/presentation/card_details/card_details.dart';
+import 'package:rash7ly/features/home/presentation/home/home_screen.dart';
+import 'package:rash7ly/features/home/presentation/search/search_screen.dart';
+
 
 class Routes {
   static const String splash = '/';
