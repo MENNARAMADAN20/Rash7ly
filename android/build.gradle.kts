@@ -1,21 +1,18 @@
-allprojects {
+subprojects {
     repositories {
         google()
         mavenCentral()
     }
-}
 
-val newBuildDir: Directory = rootProject.layout.buildDirectory.dir("../../build").get()
-rootProject.layout.buildDirectory.value(newBuildDir)
-
-subprojects {
-    val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
-    project.layout.buildDirectory.value(newSubprojectBuildDir)
-}
-subprojects {
+    // تعيين مسار build لكل مشروع فرعي
+    val newBuildDir = rootProject.layout.buildDirectory.dir("../../build").get()
+    project.layout.buildDirectory.value(newBuildDir.dir(project.name))
+    
+    // التأكد من أن كل مشروع فرعي يعتمد على app
     project.evaluationDependsOn(":app")
 }
 
+// مهمة التنظيف (clean)
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }

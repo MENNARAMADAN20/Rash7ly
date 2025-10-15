@@ -72,4 +72,28 @@ class TextStyles {
       fontWeight: fontWeight ?? FontWeight.normal,
     );
   }
+
+  static TextStyle getSize14({
+    Color? color,
+    double? fontSize,
+    FontWeight? fontWeight,
+  }) {
+    return TextStyle(
+      fontSize: fontSize ?? 14,
+      color: color,
+      fontWeight: fontWeight ?? FontWeight.normal,
+    );
+  }
+
+  static TextStyle getSize10({
+    Color? color,
+    double? fontSize,
+    FontWeight? fontWeight,
+  }) {
+    return TextStyle(
+      fontSize: fontSize ?? 10,
+      color: color,
+      fontWeight: fontWeight ?? FontWeight.normal,
+    );
+  }
 }

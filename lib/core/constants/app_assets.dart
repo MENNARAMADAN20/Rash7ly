@@ -22,4 +22,21 @@ class AppAssets {
   static const String starIconSvg = 'assets/images/star.svg';
   static const String homeTextSvg = 'assets/images/homeText.svg';
   static const String searchIcon = 'assets/images/searchIcon.svg';
+
+  // categories
+  static const String beach = 'assets/images/beaches.png';
+  static const String city = 'assets/images/cities.png';
+  static const String mountain = 'assets/images/mountains.png';
+  static const String park = 'assets/images/parks.png';
+
+  // saved places
+  static const String saved1 = 'assets/images/saved_1.png';
+  static const String saved2 = 'assets/images/saved_2.png';
+  static const String saved3 = 'assets/images/saved_3.png';
+  static const String saved4 = 'assets/images/saved_4.png';
+  static const String saved5 = 'assets/images/saved_5.png';
+  static const String saved6 = 'assets/images/saved_6.png';
+
+  // error image
+  static const String error = 'assets/images/error.png';
 }
