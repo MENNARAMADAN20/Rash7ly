@@ -29,6 +29,16 @@ class AppAssets {
   static const String mountain = 'assets/images/mountains.png';
   static const String park = 'assets/images/parks.png';
 
+  // Carddetails
+  static const String circleAvatar = 'assets/images/circleAvatar.png';
+  static const String detailsImage = 'assets/images/detailsimage.png';
+  static const String natureBird = 'assets/images/natureBird.png';
+
+  // Profile
+  static const String personProfile = 'assets/images/Person.png';
+
+
+
   // saved places
   static const String saved1 = 'assets/images/saved_1.png';
   static const String saved2 = 'assets/images/saved_2.png';
