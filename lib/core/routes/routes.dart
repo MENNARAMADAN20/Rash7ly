@@ -9,13 +9,12 @@ import 'package:rash7ly/features/home/presentation/categories/category_type_scre
 import 'package:rash7ly/features/home/presentation/home/home_screen.dart';
 import 'package:rash7ly/features/home/presentation/saved_places/savedplaces_screen.dart';
 import 'package:rash7ly/features/home/presentation/search/search_screen.dart';
+import 'package:rash7ly/features/onboarding/onboarding.dart';
 
 
 class Routes {
-  static const String splash = '/';
-  static const String onBoard1 = '/onBoard1';
-  static const String onBoard2 = '/onBoard2';
-  static const String onBoard3 = '/onBoard3';
+
+  static const String onBoard = '/';
   static const String signIn = '/signIn';
   static const String signUp = '/singUp';
   static const String forgetPassword = '/forgetPassword';
@@ -28,6 +27,7 @@ class Routes {
 
   static final routes = GoRouter(
     routes: [
+      GoRoute(path: onBoard, builder: (context, state) => OnboardingScreen()),
       GoRoute(path: signUp, builder: (context, state) => RegisterScreen()),
       GoRoute(
         path: forgetPassword,
