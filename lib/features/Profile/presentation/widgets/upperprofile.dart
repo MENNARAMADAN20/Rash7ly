@@ -18,7 +18,7 @@ class upperprofile extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                //   Navigator.pop(context);
+                  Navigator.pop(context);
               },
               icon: buildicon(
                 icon: Icons.arrow_back_ios_new_outlined,

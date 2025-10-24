@@ -135,21 +135,26 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    AppAssets.profileIconSvg,
-                    colorFilter: ColorFilter.mode(
-                      AppColors.greyColor,
-                      BlendMode.srcIn,
+              GestureDetector(
+                onTap: () {
+                   pushTo(context, Routes.profile);
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      AppAssets.profileIconSvg,
+                      colorFilter: ColorFilter.mode(
+                        AppColors.greyColor,
+                        BlendMode.srcIn,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "Profile",
-                    style: TextStyles.getSize12(color: AppColors.greyColor),
-                  ),
-                ],
+                    Text(
+                      "Profile",
+                      style: TextStyles.getSize12(color: AppColors.greyColor),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

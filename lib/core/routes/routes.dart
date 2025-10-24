@@ -24,6 +24,7 @@ class Routes {
   static const String categories = '/categories';
   static const String categoryType = '/categorytype';
   static const String savedplaces = '/savedplaces';
+  static const String profile = '/profile_screen';
 
   static final routes = GoRouter(
     routes: [
@@ -51,6 +52,10 @@ class Routes {
       GoRoute(
         path: savedplaces,
         builder: (context, state) => SavedplacesScreen(),
+      ),
+      GoRoute(
+        path: profile,
+        builder: (context, state) => ProfileScreen(),
       ),
     ],
   );

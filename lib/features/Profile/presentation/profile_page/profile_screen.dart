@@ -5,7 +5,6 @@ import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/Profile/presentation/widgets/profile_field.dart';
 import 'package:rash7ly/features/Profile/presentation/widgets/upperprofile.dart';
-import 'package:rash7ly/features/home/presentation/widgets/_build_icon.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -15,7 +14,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          upperprofile(),
+        upperprofile(),
           Image.asset(AppAssets.personProfile),
           Text(
             'Leonardo',
