@@ -58,108 +58,108 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-
-      floatingActionButton: Transform.translate(
-        offset: Offset(5, 30),
-        child: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: AppColors.blueColor,
-          shape: CircleBorder(),
-          child: Icon(Icons.add, size: 30, color: Colors.white),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        color: AppColors.whiteColor,
-        child: SizedBox(
-          height: 70,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    AppAssets.homeIconSvg,
-                    colorFilter: ColorFilter.mode(
-                      AppColors.blueColor,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                  Text(
-                    "Home",
-                    style: TextStyles.getSize12(color: AppColors.blueColor),
-                  ),
-                ],
-              ),
-              GestureDetector(
-                onTap: () => pushTo(context, Routes.categories), // ibrahim edit
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      AppAssets.categoriesSvg,
-                      colorFilter: ColorFilter.mode(
-                        AppColors.greyColor,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                    Text(
-                      "Categories",
-                      style: TextStyles.getSize12(color: AppColors.greyColor),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(width: 40),
-              GestureDetector(
-                onTap: () {
-                  pushTo(context, Routes.search);
-                },
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SvgPicture.asset(
-                      AppAssets.searchIconSvg,
-                      height: 24,
-                      colorFilter: ColorFilter.mode(
-                        AppColors.greyColor,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      'Search',
-                      style: TextStyles.getSize12(color: AppColors.greyColor),
-                    ),
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                   pushTo(context, Routes.profile);
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      AppAssets.profileIconSvg,
-                      colorFilter: ColorFilter.mode(
-                        AppColors.greyColor,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                    Text(
-                      "Profile",
-                      style: TextStyles.getSize12(color: AppColors.greyColor),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      //! this override by ibrahim
+      // floatingActionButton: Transform.translate(
+      //   offset: Offset(5, 30),
+      //   child: FloatingActionButton(
+      //     onPressed: () {},
+      //     backgroundColor: AppColors.blueColor,
+      //     shape: CircleBorder(),
+      //     child: Icon(Icons.add, size: 30, color: Colors.white),
+      //   ),
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // bottomNavigationBar: BottomAppBar(
+      //   color: AppColors.whiteColor,
+      //   child: SizedBox(
+      //     height: 70,
+      //     child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //       children: [
+      //         Column(
+      //           mainAxisAlignment: MainAxisAlignment.center,
+      //           children: [
+      //             SvgPicture.asset(
+      //               AppAssets.homeIconSvg,
+      //               colorFilter: ColorFilter.mode(
+      //                 AppColors.blueColor,
+      //                 BlendMode.srcIn,
+      //               ),
+      //             ),
+      //             Text(
+      //               "Home",
+      //               style: TextStyles.getSize12(color: AppColors.blueColor),
+      //             ),
+      //           ],
+      //         ),
+      //         GestureDetector(
+      //           onTap: () => pushTo(context, Routes.categories), // ibrahim edit
+      //           child: Column(
+      //             mainAxisAlignment: MainAxisAlignment.center,
+      //             children: [
+      //               SvgPicture.asset(
+      //                 AppAssets.categoriesSvg,
+      //                 colorFilter: ColorFilter.mode(
+      //                   AppColors.greyColor,
+      //                   BlendMode.srcIn,
+      //                 ),
+      //               ),
+      //               Text(
+      //                 "Categories",
+      //                 style: TextStyles.getSize12(color: AppColors.greyColor),
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //         SizedBox(width: 40),
+      //         GestureDetector(
+      //           onTap: () {
+      //             pushTo(context, Routes.search);
+      //           },
+      //           child: Column(
+      //             mainAxisSize: MainAxisSize.min,
+      //             children: [
+      //               SvgPicture.asset(
+      //                 AppAssets.searchIconSvg,
+      //                 height: 24,
+      //                 colorFilter: ColorFilter.mode(
+      //                   AppColors.greyColor,
+      //                   BlendMode.srcIn,
+      //                 ),
+      //               ),
+      //               SizedBox(height: 4),
+      //               Text(
+      //                 'Search',
+      //                 style: TextStyles.getSize12(color: AppColors.greyColor),
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //         GestureDetector(
+      //           onTap: () {
+      //              pushTo(context, Routes.profile);
+      //           },
+      //           child: Column(
+      //             mainAxisAlignment: MainAxisAlignment.center,
+      //             children: [
+      //               SvgPicture.asset(
+      //                 AppAssets.profileIconSvg,
+      //                 colorFilter: ColorFilter.mode(
+      //                   AppColors.greyColor,
+      //                   BlendMode.srcIn,
+      //                 ),
+      //               ),
+      //               Text(
+      //                 "Profile",
+      //                 style: TextStyles.getSize12(color: AppColors.greyColor),
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
