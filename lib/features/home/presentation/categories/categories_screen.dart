@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rash7ly/components/appbar/arrow_back_app_bar.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/home/model/categories_class.dart';
@@ -14,7 +13,8 @@ class CategoriesScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.whiteColor,
         leadingWidth: 60,
-        leading: ArrowBackAppBar(),
+        //! this override by ibrahim
+        // leading: ArrowBackAppBar(),
         title: Text(
           "Categories",
           style: TextStyles.getSize18(fontWeight: FontWeight.w600),
@@ -23,7 +23,7 @@ class CategoriesScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsetsGeometry.all(20),
+          padding: EdgeInsetsGeometry.symmetric(horizontal: 20),
           child: SingleChildScrollView(
             child: GridView.builder(
               shrinkWrap: true,

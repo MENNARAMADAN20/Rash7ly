@@ -82,7 +82,17 @@ class _LoginScreenState extends State<LoginScreen> {
           const SizedBox(height: 20),
           forgotPasswordButton(context),
           const SizedBox(height: 50),
-          MainButton(onPressed: () {pushWithReplacement(context, Routes.home);}, text: 'Sign in', height: 65),
+          // Main button
+          MainButton(
+            onPressed: () {
+              pushWithReplacement(
+                context,
+                Routes.mainScreen,
+              ); // ibrahim edit this <<<<<<<<<
+            },
+            text: 'Sign in',
+            height: 65,
+          ),
           const SizedBox(height: 40),
           signUpButton(context),
           const SizedBox(height: 60),

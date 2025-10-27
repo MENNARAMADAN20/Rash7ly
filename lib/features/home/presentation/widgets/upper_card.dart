@@ -4,9 +4,7 @@ import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/home/presentation/widgets/_build_icon.dart';
 
 class UpperCard extends StatelessWidget {
-  const UpperCard({
-    super.key,
-  });
+  const UpperCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +16,9 @@ class UpperCard extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                //   Navigator.pop(context);
+                Navigator.pop(context);
               },
-              icon: buildicon(icon: Icons.arrow_back_ios)
+              icon: buildicon(icon: Icons.arrow_back_ios),
               // icon: _build_icon(Icons.arrow_back_ios_new_rounded),
             ),
             Text(
@@ -32,7 +30,7 @@ class UpperCard extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {},
-              icon: buildicon(icon:  Icons.bookmark_border),
+              icon: buildicon(icon: Icons.bookmark_border),
             ),
           ],
         ),

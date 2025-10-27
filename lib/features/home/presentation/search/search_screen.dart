@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
-import 'package:rash7ly/features/home/widgets/arrow_back_app_bar.dart';
 import 'package:rash7ly/features/home/widgets/search_bar_widget.dart';
 import 'package:rash7ly/features/home/widgets/search_grid_view.dart';
 
@@ -20,33 +19,35 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.whiteColor,
         leadingWidth: 60,
-        leading: ArrowBackAppBar(),
+        //! this override by ibrahim
+        // leading: ArrowBackAppBar(),
         title: Text(
           "Search",
           style: TextStyles.getSize18(fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: TextButton(
-              onPressed: () {},
-              child: Text(
-                'Cancel',
-                style: TextStyles.getSize16(
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.blueColor,
-                ),
-              ),
-            ),
-          ),
-        ],
+        //! this override by ibrahim
+        // actions: [
+        // Padding(
+        //   padding: const EdgeInsets.only(right: 10),
+        //   child: TextButton(
+        //     onPressed: () {},
+        //     child: Text(
+        //       'Cancel',
+        //       style: TextStyles.getSize16(
+        //         fontWeight: FontWeight.w600,
+        //         color: AppColors.blueColor,
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // ],
       ),
       body: Center(
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: SearchBarWidget(),
             ),
             Gap(10),
@@ -67,11 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    
-                    height: 600,
-                    child: SearchGridView(),
-                  ),
+                  child: SizedBox(height: 600, child: SearchGridView()),
                 ),
               ],
             ),

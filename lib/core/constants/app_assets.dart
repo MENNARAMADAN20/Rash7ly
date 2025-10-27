@@ -1,4 +1,7 @@
 class AppAssets {
+  // splash
+  static const String splashLottie = 'assets/images/Rasha7ly_splash.json';
+  static const String welcomeLottie = 'assets/images/welcome.json';
   //auth
   static const String facebookSvg = 'assets/images/facebook.svg';
   static const String instagramSvg = 'assets/images/instagram.svg';
@@ -21,7 +24,8 @@ class AppAssets {
   static const String groupIconSvg = 'assets/images/group.svg';
   static const String starIconSvg = 'assets/images/star.svg';
   static const String homeTextSvg = 'assets/images/homeText.svg';
-  static const String searchIcon = 'assets/images/searchIcon.svg';
+  static const String searchIcon =
+      'assets/images/search.svg'; //! this icon changed by ibrahim
 
   // categories
   static const String beach = 'assets/images/beaches.png';
@@ -36,8 +40,6 @@ class AppAssets {
 
   // Profile
   static const String personProfile = 'assets/images/Person.png';
-
-
 
   // saved places
   static const String saved1 = 'assets/images/saved_1.png';

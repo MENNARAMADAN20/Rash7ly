@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class buildicon extends StatelessWidget {
-  const buildicon({super.key, required this.icon, this.color, this.iconcolor,});
+  const buildicon({super.key, required this.icon, this.color, this.iconcolor});
   final IconData icon;
-  final Color ?color;
-  final Color ?iconcolor;
+  final Color? color;
+  final Color? iconcolor;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +16,7 @@ class buildicon extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       padding: const EdgeInsets.all(10),
-      child: Icon(icon, color: iconcolor ?? Colors.white, size: 20,),
+      child: Icon(icon, color: iconcolor ?? Colors.white, size: 20),
     );
   }
 }

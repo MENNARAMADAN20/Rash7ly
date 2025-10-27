@@ -4,9 +4,7 @@ import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/home/presentation/widgets/_build_icon.dart';
 
 class upperprofile extends StatelessWidget {
-  const upperprofile({
-    super.key,
-  });
+  const upperprofile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +16,7 @@ class upperprofile extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                  Navigator.pop(context);
+                Navigator.pop(context);
               },
               icon: buildicon(
                 icon: Icons.arrow_back_ios_new_outlined,
