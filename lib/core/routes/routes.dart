@@ -33,6 +33,7 @@ class Routes {
   static const String cardDetails = '/cardDetails';
 
   static final routes = GoRouter(
+    initialLocation: splash,
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
       GoRoute(path: onBoard, builder: (context, state) => OnboardingScreen()),
