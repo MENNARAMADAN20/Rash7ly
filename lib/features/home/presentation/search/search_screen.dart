@@ -26,21 +26,7 @@ class _SearchScreenState extends State<SearchScreen> {
           style: TextStyles.getSize18(fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: TextButton(
-              onPressed: () {},
-              child: Text(
-                'Cancel',
-                style: TextStyles.getSize16(
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.blueColor,
-                ),
-              ),
-            ),
-          ),
-        ],
+        
       ),
       body: Center(
         child: Column(
