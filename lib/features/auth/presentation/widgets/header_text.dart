@@ -3,7 +3,7 @@ import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 
 class HeaderText extends StatelessWidget {
-  HeaderText({
+  const HeaderText({
     super.key,
     required this.title,
     required this.subtitle,

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "443526681393",
+    "project_id": "rasha7ly-91956",
+    "storage_bucket": "rasha7ly-91956.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443526681393:android:730d664910c39be6865610",
+        "android_client_info": {
+          "package_name": "com.example.rash7ly"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9RkD3qloQnukNsvF5GvPGDyxvNQL1bvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
