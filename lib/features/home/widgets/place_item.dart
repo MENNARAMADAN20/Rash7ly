@@ -7,7 +7,6 @@ import 'package:rash7ly/core/routes/routes.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 
-// by ibrahim
 class PlaceItem extends StatefulWidget {
   const PlaceItem({
     super.key,
@@ -26,6 +25,7 @@ class PlaceItem extends StatefulWidget {
 
 class _PlaceItemState extends State<PlaceItem> {
   bool isfav = false;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -33,67 +33,77 @@ class _PlaceItemState extends State<PlaceItem> {
       child: Stack(
         children: [
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(2, 2),
+                  blurRadius: 5,
+                  offset: const Offset(2, 3),
                 ),
               ],
             ),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(2),
-                child: Column(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(widget.image, fit: BoxFit.cover),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: AspectRatio(
+                    aspectRatio: 1.2,
+                    child: Image.asset(
+                      widget.image,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
                     ),
-
-                    Gap(5),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 7),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                ),
+                const Gap(8),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyles.getSize16(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const Gap(4),
+                      Row(
                         children: [
-                          Text(
-                            widget.title,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyles.getSize16(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
+                          SvgPicture.asset(
+                            AppAssets.locationIconSvg,
+                            height: 16,
+                            colorFilter: ColorFilter.mode(
+                              AppColors.greyColor,
+                              BlendMode.srcIn,
                             ),
-                            textAlign: TextAlign.center,
                           ),
-                          Row(
-                            children: [
-                              SvgPicture.asset(AppAssets.locationIconSvg),
-                              Gap(4),
-                              Expanded(
-                                child: Text(
-                                  widget.location,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyles.getSize12(
-                                    fontSize: 13,
-                                    color: AppColors.greyColor,
-                                  ),
-                                ),
+                          const Gap(5),
+                          Expanded(
+                            child: Text(
+                              widget.location,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyles.getSize12(
+                                fontSize: 13,
+                                color: AppColors.greyColor,
                               ),
-                            ],
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
           Positioned(
@@ -101,15 +111,16 @@ class _PlaceItemState extends State<PlaceItem> {
             top: 10,
             child: GestureDetector(
               onTap: () {
-                // add to fav <<<<<<<<<<<<
-                isfav = !isfav;
-                setState(() {});
+                setState(() {
+                  isfav = !isfav;
+                });
               },
               child: CircleAvatar(
                 backgroundColor: AppColors.whiteColor.withValues(alpha: 0.5),
-                child: isfav == false
-                    ? Icon(Icons.favorite_outline, color: Colors.red)
-                    : Icon(Icons.favorite, color: Colors.red),
+                child: Icon(
+                  isfav ? Icons.favorite : Icons.favorite_outline,
+                  color: Colors.red,
+                ),
               ),
             ),
           ),

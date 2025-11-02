@@ -13,8 +13,6 @@ class CategoriesScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.whiteColor,
         leadingWidth: 60,
-        //! this override by ibrahim
-        // leading: ArrowBackAppBar(),
         title: Text(
           "Categories",
           style: TextStyles.getSize18(fontWeight: FontWeight.w600),

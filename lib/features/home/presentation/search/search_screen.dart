@@ -20,7 +20,7 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.whiteColor,
         leadingWidth: 60,
-        leading: ArrowBackAppBar(),
+        leading: ArrowBackAppBar(backgroundColor: AppColors.lightGreyColor,iconColor: AppColors.darkModeColor,),
         title: Text(
           "Search",
           style: TextStyles.getSize18(fontWeight: FontWeight.w600),
@@ -28,40 +28,42 @@ class _SearchScreenState extends State<SearchScreen> {
         centerTitle: true,
         
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: SearchBarWidget(),
-            ),
-            Gap(10),
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Search Places',
-                        style: TextStyles.getSize20(
-                          fontWeight: FontWeight.w600,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: SearchBarWidget(),
+              ),
+              Gap(10),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Search Places',
+                          style: TextStyles.getSize20(
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    
-                    height: 600,
-                    child: SearchGridView(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      
+                      height: 600,
+                      child: SearchGridView(),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

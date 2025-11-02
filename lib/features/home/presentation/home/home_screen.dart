@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
-import 'package:rash7ly/core/routes/navigation.dart';
-import 'package:rash7ly/core/routes/routes.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/home/widgets/home_list_widget.dart';
@@ -222,15 +220,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   const Gap(20),
                   _animatedCardWrapper(
                     HomeTextRow(RowText: 'Saved Recommendations'),
-                    2,
+                    0,
                   ),
-                  _animatedCardWrapper(HomeListWidget(), 3),
-                  const Gap(20),
+                  _animatedCardWrapper(HomeListWidget(), 2),
+                  const Gap(10),
                   _animatedCardWrapper(
                     HomeTextRow(RowText: 'Popular Package'),
                     4,
                   ),
-                  _animatedCardWrapper(HomeListWidget(), 5),
+                  _animatedCardWrapper(HomeListWidget(), 2),
                 ],
               ),
             ),
@@ -287,100 +285,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
 
-      floatingActionButton: Transform.translate(
-        offset: const Offset(5, 30),
-        child: FloatingActionButton(
-          onPressed: () => _showCreatePostSheet(context),
-          backgroundColor: AppColors.blueColor,
-          shape: const CircleBorder(),
-          child: const Icon(Icons.add, size: 30, color: Colors.white),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      
 
-      bottomNavigationBar: BottomAppBar(
-        color: AppColors.whiteColor,
-        child: SizedBox(
-          height: 70,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    AppAssets.homeIconSvg,
-                    colorFilter: ColorFilter.mode(
-                      AppColors.blueColor,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                  Text(
-                    "Home",
-                    style: TextStyles.getSize12(color: AppColors.blueColor),
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    AppAssets.categoriesSvg,
-                    colorFilter: ColorFilter.mode(
-                      AppColors.greyColor,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                  Text(
-                    "Categories",
-                    style: TextStyles.getSize12(color: AppColors.greyColor),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 40),
-              GestureDetector(
-                onTap: () {
-                  pushTo(context, Routes.search);
-                },
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SvgPicture.asset(
-                      AppAssets.searchIconSvg,
-                      height: 24,
-                      colorFilter: ColorFilter.mode(
-                        AppColors.greyColor,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Search',
-                      style: TextStyles.getSize12(color: AppColors.greyColor),
-                    ),
-                  ],
-                ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    AppAssets.profileIconSvg,
-                    colorFilter: ColorFilter.mode(
-                      AppColors.greyColor,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                  Text(
-                    "Profile",
-                    style: TextStyles.getSize12(color: AppColors.greyColor),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+      
     );
   }
 }

@@ -175,7 +175,7 @@ Widget _buildMoreImagesSheet() {
         return ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Image.asset(
-            'assets/images/more_${index + 1}.png',
+            AppAssets.image1,
             fit: BoxFit.cover,
           ),
         );
