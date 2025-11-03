@@ -15,7 +15,9 @@ class buildicon extends StatelessWidget {
         color: color ?? Colors.black.withOpacity(0.4),
         shape: BoxShape.circle,
       ),
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.fromLTRB(
+        7,8,8,8
+      ),
       child: Icon(icon, color: iconcolor ?? Colors.white, size: 20),
     );
   }

@@ -18,7 +18,7 @@ class UpperCard extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: buildicon(icon: Icons.arrow_back_ios),
+              icon: buildicon(icon: Icons.arrow_back_ios_new),
               // icon: _build_icon(Icons.arrow_back_ios_new_rounded),
             ),
             Text(
