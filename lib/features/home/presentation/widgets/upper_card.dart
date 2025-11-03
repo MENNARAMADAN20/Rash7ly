@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rash7ly/core/utilis/app_colors.dart';
-import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/home/presentation/widgets/_build_icon.dart';
-import 'package:rash7ly/features/home/widgets/arrow_back_app_bar.dart';
 
 class UpperCard extends StatelessWidget {
   const UpperCard({super.key});
@@ -15,17 +12,14 @@ class UpperCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-           ArrowBackAppBar(
-            backgroundColor: const Color.fromARGB(96, 18, 19, 23),
-            iconColor: AppColors.whiteColor,
-           ),
-            Text(
-              'Details',
-              style: TextStyles.getSize18(
-                fontWeight: FontWeight.bold,
-                color: AppColors.whiteColor,
-              ),
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: buildicon(icon: Icons.arrow_back_ios_new),
+              // icon: _build_icon(Icons.arrow_back_ios_new_rounded),
             ),
+
             IconButton(
               onPressed: () {},
               icon: buildicon(icon: Icons.bookmark_border),

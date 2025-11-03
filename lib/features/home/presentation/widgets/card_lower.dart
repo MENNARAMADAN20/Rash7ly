@@ -4,9 +4,7 @@ import 'package:rash7ly/core/constants/app_assets.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 
 class CardLower extends StatelessWidget {
-  const CardLower({
-    super.key,
-  });
+  const CardLower({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +73,7 @@ class CardLower extends StatelessWidget {
                   children: [
                     Icon(Icons.star, color: Colors.amber, size: 18),
                     SizedBox(width: 4),
-                    Text(
-                      "4.7 (2498)",
-                    ), //rate and number of people who rated
+                    Text("4.7 (2498)"), //rate and number of people who rated
                   ],
                 ),
                 Text(
@@ -94,21 +90,38 @@ class CardLower extends StatelessWidget {
               height: 50,
               child: ListView.separated(
                 itemBuilder: (context, index) {
-                  if (index < 15) {
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        AppAssets.detailsImage,
-                        //    images[index],
-                        width: 60,
-                        height: 60,
-                        fit: BoxFit.cover,
+                  if (index < 12) {
+                    return GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => Dialog(
+                            backgroundColor: Colors.transparent,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.asset(
+                                AppAssets.saved1,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.asset(
+                          AppAssets.saved1,
+                          //    images[index],
+                          width: 60,
+                          height: 60,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     );
                   } else {
                     return GestureDetector(
                       onTap: () {
-                        //               show more photos
+                        // show more photos
                         showModalBottomSheet(
                           context: context,
                           builder: (context) => _buildMoreImagesSheet(),
@@ -139,7 +152,7 @@ class CardLower extends StatelessWidget {
                     );
                   }
                 },
-                itemCount: 16, //images.length + 1,
+                itemCount: 13, //images.length + 1,
                 separatorBuilder: (context, index) => const Gap(10),
                 scrollDirection: Axis.horizontal,
               ),
@@ -160,6 +173,7 @@ class CardLower extends StatelessWidget {
     );
   }
 }
+
 Widget _buildMoreImagesSheet() {
   return Container(
     padding: const EdgeInsets.all(16),
@@ -172,11 +186,26 @@ Widget _buildMoreImagesSheet() {
       ),
       itemCount: 12,
       itemBuilder: (context, index) {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.asset(
-            AppAssets.image1,
-            fit: BoxFit.cover,
+        return GestureDetector(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) => Dialog(
+                backgroundColor: Colors.transparent,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(AppAssets.beach, fit: BoxFit.cover),
+                ),
+              ),
+            );
+          },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.asset(
+              AppAssets.beach,
+              // 'assets/images/more_${index + 1}.png',
+              fit: BoxFit.cover,
+            ),
           ),
         );
       },
