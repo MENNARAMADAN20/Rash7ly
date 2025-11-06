@@ -1,5 +1,8 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rash7ly/features/Profile/presentation/profile_page/profile_screen.dart';
+import 'package:rash7ly/features/auth/bloc/auth_bloc.dart';
+import 'package:rash7ly/features/auth/data/repo/auth_repo.dart';
 import 'package:rash7ly/features/auth/presentation/pages/forgot_password/forgot_password_screen.dart';
 import 'package:rash7ly/features/auth/presentation/pages/login/login_screen.dart';
 import 'package:rash7ly/features/auth/presentation/pages/otp/otp_screen.dart';
@@ -37,12 +40,26 @@ class Routes {
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
       GoRoute(path: onBoard, builder: (context, state) => OnboardingScreen()),
-      GoRoute(path: signUp, builder: (context, state) => RegisterScreen()),
+      GoRoute(
+        path: signUp,
+        builder: (context, state) => BlocProvider(
+          child: RegisterScreen(),
+          create: (context) =>
+              AuthBloc(AuthRepository(), authRepository: AuthRepository()),
+        ),
+      ),
       GoRoute(
         path: forgetPassword,
         builder: (context, state) => ForgotPasswordScreen(),
       ),
-      GoRoute(path: signIn, builder: (context, state) => LoginScreen()),
+      GoRoute(
+        path: signIn,
+        builder: (context, state) => BlocProvider(
+          child: LoginScreen(),
+          create: (context) =>
+              AuthBloc(AuthRepository(), authRepository: AuthRepository()),
+        ),
+      ),
       GoRoute(path: otp, builder: (context, state) => OtpScreen()),
       GoRoute(path: home, builder: (context, state) => HomeScreen()),
       GoRoute(path: search, builder: (context, state) => SearchScreen()),

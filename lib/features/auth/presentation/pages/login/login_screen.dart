@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rash7ly/components/buttons/main_button.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
 import 'package:rash7ly/core/routes/navigation.dart';
@@ -9,6 +10,9 @@ import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/components/formfields/auth_form_field.dart';
 import 'package:rash7ly/features/auth/presentation/widgets/header_text.dart';
+import 'package:rash7ly/features/auth/bloc/auth_bloc.dart';
+import 'package:rash7ly/features/auth/bloc/auth_event.dart';
+import 'package:rash7ly/features/auth/bloc/auth_state.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -19,48 +23,95 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final formkey = GlobalKey<FormState>();
-
   final emailcontroller = TextEditingController();
-
   final passwordcontroller = TextEditingController();
+  var obsecureText = true;
 
-  var obsecureText = false;
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your email';
+    }
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    if (!emailRegex.hasMatch(value)) {
+      return 'Please enter a valid email';
+    }
+    return null;
+  }
+
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    }
+    if (value.length < 6) {
+      return 'Password must be at least 6 characters';
+    }
+    return null;
+  }
+
+  @override
+  void dispose() {
+    emailcontroller.dispose();
+    passwordcontroller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              children: [
-                const SizedBox(height: 100),
-                HeaderText(
-                  title: 'Sign in',
-                  subtitle: 'Please sign in to continue',
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is Authenticated) {
+          pushAndRemoveUntil(context, Routes.mainScreen);
+        } else if (state is AuthError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message), backgroundColor: Colors.red),
+          );
+        }
+      },
+      builder: (context, state) {
+        final isLoading = state is AuthLoading;
+
+        return Scaffold(
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 100),
+                    HeaderText(
+                      title: 'Sign in',
+                      subtitle: 'Please sign in to continue',
+                    ),
+                    const SizedBox(height: 50),
+                    loginFormFields(context, isLoading),
+                  ],
                 ),
-                const SizedBox(height: 50),
-                loginFormFields(context),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
-  Form loginFormFields(BuildContext context) {
+  Form loginFormFields(BuildContext context, bool isLoading) {
     return Form(
       key: formkey,
       child: Column(
         children: [
-          AuthFormField(controller: emailcontroller, hint: 'Email'),
+          AuthFormField(
+            controller: emailcontroller,
+            hint: 'Email',
+            validator: validateEmail,
+            enabled: !isLoading,
+          ),
           const SizedBox(height: 20),
           AuthFormField(
             controller: passwordcontroller,
             obscureText: obsecureText,
             hint: 'Password',
+            validator: validatePassword,
+            enabled: !isLoading,
             suffixIcon: GestureDetector(
               onTap: () {
                 setState(() {
@@ -82,15 +133,19 @@ class _LoginScreenState extends State<LoginScreen> {
           const SizedBox(height: 20),
           forgotPasswordButton(context),
           const SizedBox(height: 50),
-          // Main button
           MainButton(
             onPressed: () {
-              pushWithReplacement(
-                context,
-                Routes.mainScreen,
-              ); // ibrahim edit this <<<<<<<<<
+              if (isLoading) return;
+              if (formkey.currentState!.validate()) {
+                context.read<AuthBloc>().add(
+                  SignInRequested(
+                    email: emailcontroller.text.trim(),
+                    password: passwordcontroller.text,
+                  ),
+                );
+              }
             },
-            text: 'Sign in',
+            text: isLoading ? 'Loading...' : 'Sign in',
             height: 65,
           ),
           const SizedBox(height: 40),
@@ -106,11 +161,26 @@ class _LoginScreenState extends State<LoginScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SvgPicture.asset(AppAssets.facebookSvg),
+        GestureDetector(
+          onTap: () {
+            context.read<AuthBloc>().add(SignInWithFacebookEvent());
+          },
+          child: SvgPicture.asset(AppAssets.facebookSvg),
+        ),
         const SizedBox(width: 20),
-        SvgPicture.asset(AppAssets.instagramSvg),
+        GestureDetector(
+          onTap: () {
+            context.read<AuthBloc>().add(SignInWithGoogleEvent());
+          },
+          child: SvgPicture.asset(AppAssets.google),
+        ),
         const SizedBox(width: 20),
-        SvgPicture.asset(AppAssets.twitterSvg),
+        GestureDetector(
+          onTap: () {
+            context.read<AuthBloc>().add(SignInWithTwitterEvent());
+          },
+          child: SvgPicture.asset(AppAssets.twitterSvg),
+        ),
       ],
     );
   }
