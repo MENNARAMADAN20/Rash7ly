@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:rash7ly/components/buttons/main_button.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
+import 'package:rash7ly/core/routes/navigation.dart';
+import 'package:rash7ly/core/routes/routes.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/Profile/presentation/widgets/profile_field.dart';
+import 'package:rash7ly/features/auth/data/repo/auth_repo.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -53,6 +57,13 @@ class ProfileScreen extends StatelessWidget {
           ProfileField(text: "Settings", icon: Icons.settings),
           //  Divider(),
         ],
+      ),
+      bottomNavigationBar: MainButton(
+        text: 'Signout',
+        onPressed: () {
+          AuthRepository().signOut();
+          pushAndRemoveUntil(context, Routes.signIn);
+        },
       ),
     );
   }

@@ -9,6 +9,7 @@ class AuthFormField extends StatelessWidget {
     this.prefixIcon,
     this.obscureText,
     this.validator,
+    this.enabled = true,
   });
 
   final String hint;
@@ -17,6 +18,7 @@ class AuthFormField extends StatelessWidget {
   final Widget? prefixIcon;
   final bool? obscureText;
   final String? Function(String?)? validator;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class AuthFormField extends StatelessWidget {
       controller: controller,
       obscureText: obscureText ?? false,
       validator: validator,
+      enabled: enabled,
     );
   }
 }

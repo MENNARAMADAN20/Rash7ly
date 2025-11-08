@@ -7,6 +7,7 @@ class AppAssets {
   static const String instagramSvg = 'assets/images/instagram.svg';
   static const String twitterSvg = 'assets/images/twitter.svg';
   static const String passwordEye = 'assets/images/password_visible.svg';
+  static const String google = 'assets/images/icons8-google.svg';
   //home
   static const String profilePicSvg = 'assets/images/profilePic.svg';
   static const String image1 = 'assets/images/image1.png';
