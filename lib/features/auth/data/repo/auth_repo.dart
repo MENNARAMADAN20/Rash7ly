@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:rash7ly/core/services/local/local_helper.dart';
 import '../models/user_model.dart';
 
 class AuthRepository {
@@ -30,6 +31,7 @@ class AuthRepository {
       );
 
       await _firestore.collection('users').doc(user.id).set(user.toMap());
+      LocalHelper.setUserData(user);
 
       return user;
     } on FirebaseAuthException catch (e) {
@@ -60,6 +62,7 @@ class AuthRepository {
   Future<void> signOut() async {
     try {
       await _firebaseAuth.signOut();
+      await LocalHelper.removeData(LocalHelper.kUserData);
     } catch (e) {
       throw Exception('An error occurred during sign out: $e');
     }
@@ -82,6 +85,9 @@ class AuthRepository {
 
       if (!doc.exists) {
         throw Exception('User not found');
+      } else {
+        final userModel = UserModel.fromMap(doc.data()!);
+        LocalHelper.setUserData(userModel);
       }
 
       return UserModel.fromMap(doc.data()!);
@@ -116,7 +122,6 @@ class AuthRepository {
     }
   }
 
-  // Sign in with Google using Firebase provider API (web: popup, native: provider)
   Future<UserModel?> signInWithGoogle() async {
     try {
       final googleProvider = fb.GoogleAuthProvider();
@@ -150,7 +155,6 @@ class AuthRepository {
     }
   }
 
-  // Sign in with Twitter using Firebase provider API
   Future<UserModel?> signInWithTwitter() async {
     try {
       final twitterProvider = fb.TwitterAuthProvider();
@@ -172,5 +176,28 @@ class AuthRepository {
         .collection('users')
         .doc(u.id)
         .set(u.toMap(), SetOptions(merge: true));
+  }
+
+  Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw Exception(_handleAuthException(e));
+    } catch (e) {
+      throw Exception('Failed to send reset email: $e');
+    }
+  }
+
+  Future<void> confirmPasswordReset(String code, String newPassword) async {
+    try {
+      await _firebaseAuth.confirmPasswordReset(
+        code: code,
+        newPassword: newPassword,
+      );
+    } on FirebaseAuthException catch (e) {
+      throw Exception(_handleAuthException(e));
+    } catch (e) {
+      throw Exception('Failed to reset password: $e');
+    }
   }
 }

@@ -45,3 +45,22 @@ class SignInWithGoogleEvent extends AuthEvent {}
 class SignInWithFacebookEvent extends AuthEvent {}
 
 class SignInWithTwitterEvent extends AuthEvent {}
+
+class SendPasswordResetEmailEvent extends AuthEvent {
+  final String email;
+
+  const SendPasswordResetEmailEvent(this.email);
+
+  @override
+  List<Object?> get props => [email];
+}
+
+class ConfirmPasswordResetEvent extends AuthEvent {
+  final String code;
+  final String newPassword;
+
+  const ConfirmPasswordResetEvent({required this.code, required this.newPassword});
+
+  @override
+  List<Object?> get props => [code, newPassword];
+}

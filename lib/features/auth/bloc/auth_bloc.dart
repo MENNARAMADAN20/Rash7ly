@@ -7,7 +7,8 @@ import 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _repo;
 
-  AuthBloc(this._repo, {required AuthRepository authRepository}) : super(const AuthInitial()) {
+  AuthBloc(this._repo, {required AuthRepository authRepository})
+    : super(const AuthInitial()) {
     on<SignUpRequested>(_onSignUpRequested);
     on<SignInRequested>(_onSignInRequested);
     on<SignOutRequested>(_onSignOutRequested);
@@ -49,6 +50,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         } else {
           emit(AuthError('Twitter sign-in cancelled'));
         }
+      } catch (e) {
+        emit(AuthError(e.toString()));
+      }
+    });
+
+    on<SendPasswordResetEmailEvent>((event, emit) async {
+      try {
+        emit(AuthLoading());
+        await _repo.sendPasswordResetEmail(event.email);
+        emit(PasswordResetEmailSent());
+      } catch (e) {
+        emit(AuthError(e.toString()));
+      }
+    });
+
+    on<ConfirmPasswordResetEvent>((event, emit) async {
+      try {
+        emit(AuthLoading());
+        await _repo.confirmPasswordReset(event.code, event.newPassword);
+        emit(PasswordResetConfirmed());
       } catch (e) {
         emit(AuthError(e.toString()));
       }

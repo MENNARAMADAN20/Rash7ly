@@ -30,6 +30,7 @@ class Routes {
   static const String categoryType = '/categorytype';
   static const String savedplaces = '/savedplaces';
   static const String profile = '/profile_screen';
+  static const String main = '/main';
 
   //! by ibrahim
   static const String mainScreen = '/MainScreen';
@@ -38,6 +39,7 @@ class Routes {
   static final routes = GoRouter(
     initialLocation: splash,
     routes: [
+      GoRoute(path: main, builder: (context, state) => MainScreen()),
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
       GoRoute(path: onBoard, builder: (context, state) => OnboardingScreen()),
       GoRoute(
@@ -50,7 +52,11 @@ class Routes {
       ),
       GoRoute(
         path: forgetPassword,
-        builder: (context, state) => ForgotPasswordScreen(),
+        builder: (context, state) => BlocProvider(
+          create: (context) =>
+              AuthBloc(AuthRepository(), authRepository: AuthRepository()),
+          child: ForgotPasswordScreen(),
+        ),
       ),
       GoRoute(
         path: signIn,
@@ -60,7 +66,14 @@ class Routes {
               AuthBloc(AuthRepository(), authRepository: AuthRepository()),
         ),
       ),
-      GoRoute(path: otp, builder: (context, state) => OtpScreen()),
+      GoRoute(
+        path: otp,
+        builder: (context, state) => BlocProvider(
+          create: (context) =>
+              AuthBloc(AuthRepository(), authRepository: AuthRepository()),
+          child: OtpScreen(),
+        ),
+      ),
       GoRoute(path: home, builder: (context, state) => HomeScreen()),
       GoRoute(path: search, builder: (context, state) => SearchScreen()),
       GoRoute(

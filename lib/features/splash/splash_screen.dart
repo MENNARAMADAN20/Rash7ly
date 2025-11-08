@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
 import 'package:rash7ly/core/routes/navigation.dart';
 import 'package:rash7ly/core/routes/routes.dart';
+import 'package:rash7ly/core/services/local/local_helper.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,7 +18,12 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(milliseconds: 6500), () {
-      pushTo(context, Routes.onBoard);
+      var userData = LocalHelper.getUserData();
+      if (userData != null) {
+        pushWithReplacement(context, Routes.main);
+        return;
+      }
+      pushWithReplacement(context, Routes.onBoard);
     });
   }
 
