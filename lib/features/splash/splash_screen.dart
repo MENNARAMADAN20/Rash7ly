@@ -29,7 +29,11 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Stack(
           children: [
             Center(
-              child: LottieBuilder.asset(AppAssets.splashLottie, repeat: false),
+              child: LottieBuilder.asset(
+                AppAssets.splashLottie,
+                repeat: false,
+                width: 300,
+              ),
             ),
 
             FutureBuilder(

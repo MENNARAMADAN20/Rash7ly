@@ -43,36 +43,38 @@ class _SearchScreenState extends State<SearchScreen> {
         // ),
         // ],
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: SearchBarWidget(),
-            ),
-            Gap(10),
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Search Places',
-                        style: TextStyles.getSize20(
-                          fontWeight: FontWeight.w600,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: SearchBarWidget(),
+              ),
+              Gap(10),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Search Places',
+                          style: TextStyles.getSize20(
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(height: 600, child: SearchGridView()),
-                ),
-              ],
-            ),
-          ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(height: 600, child: SearchGridView()),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -33,17 +33,23 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //! this edit by ibrahim
+    final keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom > 0;
+
     return Scaffold(
       body: pages[currentIndex],
-      floatingActionButton: Transform.translate(
-        offset: Offset(5, 30),
-        child: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.blue,
-          shape: CircleBorder(),
-          child: Icon(Icons.add, color: Colors.white, size: 32),
-        ),
-      ),
+      //! this condition by ibrahim
+      floatingActionButton: !keyboardIsOpen
+          ? Transform.translate(
+              offset: Offset(5, 30),
+              child: FloatingActionButton(
+                onPressed: () {},
+                backgroundColor: Colors.blue,
+                shape: CircleBorder(),
+                child: Icon(Icons.add, color: Colors.white, size: 32),
+              ),
+            )
+          : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),

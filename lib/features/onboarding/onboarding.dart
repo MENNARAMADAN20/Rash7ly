@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/onboarding/model/onboardModel.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -42,6 +43,37 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Container(
+        height: 100,
+        padding: const EdgeInsets.all(16),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xff0D6EFD),
+            minimumSize: const Size(double.infinity, 60),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          onPressed: () {
+            if (_currentPage == pages.length - 1) {
+              context.go('/signIn');
+            } else {
+              _controller.nextPage(
+                duration: const Duration(milliseconds: 400),
+                curve: Curves.easeInOut,
+              );
+            }
+          },
+          child: Text(
+            (_currentPage == 2) ? 'Get Started' : 'Next',
+            style: TextStyles.getSize16(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ),
+
       body: Stack(
         children: [
           PageView.builder(
@@ -53,29 +85,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             itemBuilder: (context, index) {
               final page = pages[index];
               return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    flex: 6,
+                  Container(
+                    height: MediaQuery.sizeOf(context).height * 0.6,
                     child: Image.asset(page.image, fit: BoxFit.fill),
                   ),
                   const SizedBox(height: 20),
-                  Text(
-                    page.title,
-                    textAlign: TextAlign.center,
-                    style: TextStyles.getSize30(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w600,
+                  Expanded(
+                    child: Text(
+                      page.title,
+                      textAlign: TextAlign.center,
+                      style: TextStyles.getSize30(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Text(
-                    page.description,
-                    textAlign: TextAlign.center,
-                    style: TextStyles.getSize12(
-                      color: Color(0xff7D848D),
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
+                  Expanded(
+                    child: Text(
+                      page.description,
+                      textAlign: TextAlign.center,
+                      style: TextStyles.getSize12(
+                        color: Color(0xff7D848D),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -92,55 +128,67 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: 30),
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff0D6EFD),
-                        minimumSize: const Size(double.infinity, 60),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onPressed: () {
-                        if (_currentPage == pages.length - 1) {
-                          context.go('/signIn');
-                        } else {
-                          _controller.nextPage(
-                            duration: const Duration(milliseconds: 400),
-                            curve: Curves.easeInOut,
-                          );
-                        }
-                      },
-                      child: Text(
-                        page.buttonText,
-                        style: TextStyles.getSize16(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-
+                  //! this override by ibrahim
+                  // const SizedBox(height: 30),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(16),
+                  //   child: ElevatedButton(
+                  //     style: ElevatedButton.styleFrom(
+                  //       backgroundColor: Color(0xff0D6EFD),
+                  //       minimumSize: const Size(double.infinity, 60),
+                  //       shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(12),
+                  //       ),
+                  //     ),
+                  //     onPressed: () {
+                  //       if (_currentPage == pages.length - 1) {
+                  //         context.go('/signIn');
+                  //       } else {
+                  //         _controller.nextPage(
+                  //           duration: const Duration(milliseconds: 400),
+                  //           curve: Curves.easeInOut,
+                  //         );
+                  //       }
+                  //     },
+                  //     child: Text(
+                  //       page.buttonText,
+                  //       style: TextStyles.getSize16(
+                  //         color: Colors.white,
+                  //         fontWeight: FontWeight.w600,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   const SizedBox(height: 40),
                 ],
               );
             },
           ),
-          Positioned(
-            top: 40,
-            right: 10,
-            child: TextButton(
-              onPressed: () {
-                context.go('/signIn');
-              },
-              child: const Text(
-                'Skip',
-                style: TextStyle(color: Colors.grey, fontSize: 16),
+          //! this edit by ibrahim
+          if (_currentPage != 2)
+            Positioned(
+              top: 40,
+              right: 10,
+              child: TextButton(
+                onPressed: () {
+                  context.go('/signIn');
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 12,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.blueColor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Text(
+                    'Skip',
+                    style: TextStyle(color: AppColors.whiteColor, fontSize: 16),
+                  ),
+                ),
               ),
             ),
-          ),
         ],
       ),
     );

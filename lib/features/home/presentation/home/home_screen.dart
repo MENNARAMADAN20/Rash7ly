@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
-import 'package:rash7ly/core/routes/navigation.dart';
-import 'package:rash7ly/core/routes/routes.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:gap/gap.dart';
@@ -43,17 +41,22 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          Container(
-            margin: const EdgeInsets.only(top: 10, right: 15),
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(
-              color: AppColors.lightGreyColor,
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [SvgPicture.asset(AppAssets.notificationIconSvg)],
+          //! this gesturedetector by ibrahim
+          GestureDetector(
+            // push to notification screen
+            // onTap: () => pushTo(context, route),
+            child: Container(
+              margin: const EdgeInsets.only(top: 10, right: 15),
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                color: AppColors.lightGreyColor,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [SvgPicture.asset(AppAssets.notificationIconSvg)],
+              ),
             ),
           ),
         ],
