@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
+import 'package:rash7ly/features/home/presentation/card_details/card_imags/card_images.dart';
+import 'package:rash7ly/features/home/presentation/card_details/card_imags/card_images.dart'
+    as Assets;
 
 class CardLower extends StatelessWidget {
   const CardLower({super.key});
@@ -90,28 +93,15 @@ class CardLower extends StatelessWidget {
               height: 50,
               child: ListView.separated(
                 itemBuilder: (context, index) {
-                  if (index < 12) {
+                  if (index < 10) {
                     return GestureDetector(
                       onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => Dialog(
-                            backgroundColor: Colors.transparent,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.asset(
-                                AppAssets.saved1,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        );
+                        openImageViewer(context, index, images);
                       },
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child: Image.asset(
-                          AppAssets.saved1,
-                          //    images[index],
+                          images[index],
                           width: 60,
                           height: 60,
                           fit: BoxFit.cover,
@@ -124,7 +114,8 @@ class CardLower extends StatelessWidget {
                         // show more photos
                         showModalBottomSheet(
                           context: context,
-                          builder: (context) => _buildMoreImagesSheet(),
+                          builder: (context) =>
+                              _buildMoreImagesSheet(context, images),
                         );
                       },
                       child: Container(
@@ -152,7 +143,7 @@ class CardLower extends StatelessWidget {
                     );
                   }
                 },
-                itemCount: 13, //images.length + 1,
+                itemCount: images.length + 1,
                 separatorBuilder: (context, index) => const Gap(10),
                 scrollDirection: Axis.horizontal,
               ),
@@ -174,7 +165,7 @@ class CardLower extends StatelessWidget {
   }
 }
 
-Widget _buildMoreImagesSheet() {
+Widget _buildMoreImagesSheet(BuildContext context, Images) {
   return Container(
     padding: const EdgeInsets.all(16),
     height: 300,
@@ -184,7 +175,7 @@ Widget _buildMoreImagesSheet() {
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
       ),
-      itemCount: 12,
+      itemCount: Images.length,
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
@@ -194,7 +185,7 @@ Widget _buildMoreImagesSheet() {
                 backgroundColor: Colors.transparent,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(AppAssets.beach, fit: BoxFit.cover),
+                  child: Image.asset(Images[index], fit: BoxFit.cover),
                 ),
               ),
             );
@@ -202,13 +193,55 @@ Widget _buildMoreImagesSheet() {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.asset(
-              AppAssets.beach,
-              // 'assets/images/more_${index + 1}.png',
+              Images[index],
+              //  'assets/images/more_${index + 1}.png',
               fit: BoxFit.cover,
             ),
           ),
         );
       },
     ),
+  );
+}
+
+void openImageViewer(
+  BuildContext context,
+  int initialIndex,
+  List<String> images,
+) {
+  showDialog(
+    context: context,
+    barrierColor: Colors.black87,
+    builder: (context) {
+      PageController controller = PageController(initialPage: initialIndex);
+
+      return GestureDetector(
+        onTap: () => Navigator.pop(context),
+        child: Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: EdgeInsets.zero,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              PageView.builder(
+                controller: controller,
+                itemCount: images.length,
+                itemBuilder: (context, index) {
+                  return InteractiveViewer(
+                    child: Image.asset(images[index], fit: BoxFit.contain),
+                  );
+                },
+              ),
+
+              Positioned(
+                top: 40,
+                right: 20,
+                child: Icon(Icons.close, color: Colors.white, size: 30),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
   );
 }

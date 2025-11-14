@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
+import 'package:rash7ly/core/routes/navigation.dart';
+import 'package:rash7ly/core/routes/routes.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/home/model/places_class.dart';
@@ -22,16 +24,13 @@ class HomeListWidget extends StatelessWidget {
           separatorBuilder: (context, index) => const SizedBox(width: 20),
           itemBuilder: (context, index) {
             final destination = BestDestination.cards[index];
-
             return AnimationConfiguration.staggeredList(
               position: index,
               duration: const Duration(milliseconds: 350),
               child: SlideAnimation(
                 horizontalOffset: 40.0,
                 curve: Curves.easeOutCubic,
-                child: FadeInAnimation(
-                  child: _buildCard(destination),
-                ),
+                child: FadeInAnimation(child: _buildCard(context, destination)),
               ),
             );
           },
@@ -40,106 +39,116 @@ class HomeListWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(destination) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      width: 268,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade300,
-            blurRadius: 6,
-            spreadRadius: 1,
-            offset: const Offset(-1, 3),
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(15),
-              ),
-              child: Image.asset(
-                destination.image,
-                height: 286,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+  Widget _buildCard(BuildContext context, destination) {
+    return GestureDetector(
+      onTap: () {
+        pushTo(context, Routes.cardDetails);
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        width: 268,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 6,
+              spreadRadius: 1,
+              offset: const Offset(-1, 3),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          destination.name,
-                          style: TextStyles.getSize16(
-                            fontWeight: FontWeight.w500,
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(15),
+                ),
+                child: Image.asset(
+                  destination.image,
+                  height: 286,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            destination.name,
+                            style: TextStyles.getSize16(
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
-                      ),
-                      Row(
-                        children: [
-                          const Icon(Icons.star,
-                              size: 18, color: Colors.amber),
-                          const Gap(1.5),
-                          Text(destination.rate.toString(),
-                              style: TextStyles.getSize16()),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const Gap(10),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
                           children: [
-                            Row(
-                              children: [
-                                SvgPicture.asset(AppAssets.locationIconSvg),
-                                const Gap(2),
-                                Text(
-                                  destination.category,
-                                  style: TextStyles.getSize12(
-                                    color: AppColors.greyColor,
-                                  ),
-                                ),
-                              ],
+                            const Icon(
+                              Icons.star,
+                              size: 18,
+                              color: Colors.amber,
                             ),
-                            const Gap(5),
-                            Row(
-                              children: [
-                                SvgPicture.asset(AppAssets.locationIconSvg),
-                                const Gap(2),
-                                Text(
-                                  destination.city,
-                                  style: TextStyles.getSize12(
-                                    color: AppColors.greyColor,
-                                  ),
-                                ),
-                              ],
+                            const Gap(1.5),
+                            Text(
+                              destination.rate.toString(),
+                              style: TextStyles.getSize16(),
                             ),
                           ],
                         ),
-                      ),
-                      SvgPicture.asset(AppAssets.groupIconSvg),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                    const Gap(10),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  SvgPicture.asset(AppAssets.locationIconSvg),
+                                  const Gap(2),
+                                  Text(
+                                    destination.category,
+                                    style: TextStyles.getSize12(
+                                      color: AppColors.greyColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const Gap(5),
+                              Row(
+                                children: [
+                                  SvgPicture.asset(AppAssets.locationIconSvg),
+                                  const Gap(2),
+                                  Text(
+                                    destination.city,
+                                    style: TextStyles.getSize12(
+                                      color: AppColors.greyColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        SvgPicture.asset(AppAssets.groupIconSvg),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
