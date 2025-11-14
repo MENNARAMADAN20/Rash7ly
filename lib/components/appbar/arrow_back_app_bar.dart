@@ -3,7 +3,6 @@ import 'package:rash7ly/core/utilis/app_colors.dart';
 
 class ArrowBackAppBar extends StatelessWidget {
   const ArrowBackAppBar({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Container(

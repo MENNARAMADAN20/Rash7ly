@@ -7,14 +7,16 @@ import 'package:rash7ly/features/auth/presentation/pages/forgot_password/forgot_
 import 'package:rash7ly/features/auth/presentation/pages/login/login_screen.dart';
 import 'package:rash7ly/features/auth/presentation/pages/otp/otp_screen.dart';
 import 'package:rash7ly/features/auth/presentation/pages/register/register_screen.dart';
+import 'package:rash7ly/features/home/model/Best_destinations.dart';
 import 'package:rash7ly/features/home/presentation/card_details/card_details.dart';
-import 'package:rash7ly/features/home/presentation/categories/categories_screen.dart';
-import 'package:rash7ly/features/home/presentation/categories/category_type_screen.dart';
+import 'package:rash7ly/features/categories/categories_screen.dart';
+import 'package:rash7ly/features/categories/category_type_screen.dart';
 import 'package:rash7ly/features/home/presentation/home/home_screen.dart';
-import 'package:rash7ly/features/home/presentation/saved_places/savedplaces_screen.dart';
+import 'package:rash7ly/features/saved_places/savedplaces_screen.dart';
 import 'package:rash7ly/features/home/presentation/search/search_screen.dart';
 import 'package:rash7ly/features/main/main_screen.dart';
 import 'package:rash7ly/features/onboarding/onboarding.dart';
+import 'package:rash7ly/features/saved_recommendations/saved_recommendations.dart';
 import 'package:rash7ly/features/splash/splash_screen.dart';
 
 class Routes {
@@ -30,6 +32,7 @@ class Routes {
   static const String categoryType = '/categorytype';
   static const String savedplaces = '/savedplaces';
   static const String profile = '/profile_screen';
+  static const String savedRecommendations = '/saved_recommendations.dart';
   static const String main = '/main';
 
   //! by ibrahim
@@ -94,7 +97,17 @@ class Routes {
       GoRoute(path: profile, builder: (context, state) => ProfileScreen()),
       //! by ibrahim
       GoRoute(path: mainScreen, builder: (context, state) => MainScreen()),
-      GoRoute(path: cardDetails, builder: (context, state) => CardDetails()),
+      GoRoute(
+        path: cardDetails,
+        builder: (context, state) {
+          final card = state.extra as BestDestination;
+          return CardDetails(card: card);
+        },
+      ),
+      GoRoute(
+        path: savedRecommendations,
+        builder: (context, state) => SavedRecommendationsScreen(),
+      ),
     ],
   );
 }

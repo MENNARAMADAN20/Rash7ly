@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
-import 'package:rash7ly/features/home/presentation/card_details/card_imags/card_images.dart';
-import 'package:rash7ly/features/home/presentation/card_details/card_imags/card_images.dart'
-    as Assets;
+import 'package:rash7ly/features/home/presentation/card_imags/card_images.dart';
 
 class CardLower extends StatelessWidget {
   const CardLower({super.key});

@@ -1,12 +1,13 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
-import 'package:rash7ly/core/routes/navigation.dart';
 import 'package:rash7ly/core/routes/routes.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
-import 'package:rash7ly/features/home/model/places_class.dart';
+import 'package:rash7ly/features/home/model/Best_destinations.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class HomeListWidget extends StatelessWidget {
@@ -39,10 +40,10 @@ class HomeListWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(BuildContext context, destination) {
+  Widget _buildCard(BuildContext context,BestDestination destination) {
     return GestureDetector(
       onTap: () {
-        pushTo(context, Routes.cardDetails);
+        context.push( Routes.cardDetails,extra: destination);
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),

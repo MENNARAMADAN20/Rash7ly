@@ -44,26 +44,36 @@ class ProfileScreen extends StatelessWidget {
               color: AppColors.greyColor,
             ),
           ),
-          Gap(30),
-
+          Gap(100),
           ProfileField(
             text: "Edit profile",
             icon: Icons.person_outline_outlined,
           ),
-          ProfileField(
-            text: "Saved Recommendations",
-            icon: Icons.bookmark_border_outlined,
+          Gap(3),
+          GestureDetector(
+            onTap: () {
+              pushTo(context, Routes.savedRecommendations);
+            },
+            child: ProfileField(
+              text: "Saved Recommendations",
+              icon: Icons.bookmark_border_outlined,
+            ),
           ),
+          Gap(3),
           ProfileField(text: "Settings", icon: Icons.settings),
           //  Divider(),
         ],
       ),
-      bottomNavigationBar: MainButton(
-        text: 'Signout',
-        onPressed: () {
-          AuthRepository().signOut();
-          pushAndRemoveUntil(context, Routes.signIn);
-        },
+
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: MainButton(
+          text: 'Signout',
+          onPressed: () {
+            AuthRepository().signOut();
+            pushAndRemoveUntil(context, Routes.signIn);
+          },
+        ),
       ),
     );
   }

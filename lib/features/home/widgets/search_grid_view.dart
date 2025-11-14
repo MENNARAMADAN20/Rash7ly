@@ -6,7 +6,7 @@ import 'package:rash7ly/core/routes/navigation.dart';
 import 'package:rash7ly/core/routes/routes.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
-import 'package:rash7ly/features/home/model/places_class.dart';
+import 'package:rash7ly/features/home/model/Best_destinations.dart';
 
 class SearchGridView extends StatelessWidget {
   const SearchGridView({super.key});

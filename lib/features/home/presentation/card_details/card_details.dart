@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:rash7ly/components/buttons/main_button.dart';
+import 'package:rash7ly/features/home/model/Best_destinations.dart';
 import 'package:rash7ly/features/home/presentation/widgets/card_lower.dart';
 import 'package:rash7ly/features/home/presentation/widgets/card_photo.dart';
 import 'package:rash7ly/features/home/presentation/widgets/upper_card.dart';
 
-class CardDetails extends StatefulWidget {
-  const CardDetails({super.key});
+class CardDetails extends StatelessWidget {
+  const CardDetails({super.key, required this.card});
+  final BestDestination card;
 
   @override
-  State<CardDetails> createState() => _CardDetailsState();
-}
-
-class _CardDetailsState extends State<CardDetails> {
-  @override
-  Widget build(BuildContext context) {
+  
+    Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: SafeArea(
         child: Padding(
@@ -85,7 +83,7 @@ class _CardDetailsState extends State<CardDetails> {
       body: Stack(
         children: [
           CardPhoto(),
-          UpperCard(),
+          UpperCard(card: card,),
           CardLower(),
         ],
       ),
