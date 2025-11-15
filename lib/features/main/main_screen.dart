@@ -18,7 +18,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final List<Widget> pages = const [
+  final List<Widget> pages =  [
     HomeScreen(),
     CategoriesScreen(),
     SearchScreen(),

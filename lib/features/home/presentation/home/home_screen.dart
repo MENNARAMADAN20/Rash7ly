@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
+import 'package:rash7ly/core/services/local/local_helper.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/home/model/Best_destinations.dart';
@@ -20,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
   double _appBarOpacity = 1.0;
+  var user = LocalHelper.getUserData();
 
   @override
   void initState() {
@@ -122,10 +124,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       child: Row(
                         children: [
-                          SvgPicture.asset(AppAssets.profilePicSvg),
+                          if (user?.photoUrl != null)
+                            CircleAvatar(
+                              radius: 50,
+                              backgroundImage: NetworkImage(user!.photoUrl!),
+                            )
+                          else
+                            Image.asset(AppAssets.personProfile),
                           const Gap(5),
                           Text(
-                            'Leonardo',
+                            user?.name ?? 'User Name',
                             style: TextStyles.getSize12(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
