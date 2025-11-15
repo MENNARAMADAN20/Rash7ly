@@ -70,25 +70,25 @@ class SearchCards {
   static List<SearchCards> cards = [
     SearchCards(
       name: 'Niladri Reservoir',
-      location: 'Tekergat, Sunamgnj',
+      location: 'Tekergat',
       pricePerPerson: '\$894',
       image: AppAssets.image1
     ),
     SearchCards(
       name: 'Casa Las Tirtugas',
-      location: 'Av Damero, Mexico',
+      location: 'Av Damero',
       pricePerPerson: '\$894',
       image: AppAssets.image2
     ),
     SearchCards(
       name: 'Aonang Villa Resort',
-      location: 'Bastola, Islampur',
+      location: 'Bastola',
       pricePerPerson: '\$761',
       image: AppAssets.image3
     ),
     SearchCards(
       name: 'Rangauti Resort',
-      location: 'Sylhet, Airport Road',
+      location: 'Sylhet',
       pricePerPerson: '\$857',
       image: AppAssets.image4
     ),

@@ -2,57 +2,62 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
 import 'package:rash7ly/core/routes/routes.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
+import 'package:rash7ly/features/home/model/saved_recomm/saved_service.dart';
 import 'package:rash7ly/features/home/model/Best_destinations.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-class HomeListWidget extends StatelessWidget {
-  const HomeListWidget({super.key});
+class SavedRecommendationsHomeSection extends StatelessWidget {
+  const SavedRecommendationsHomeSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 420,
-      child: AnimationLimiter(
-        child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          itemCount: BestDestination.cards.length,
-          separatorBuilder: (context, index) => const SizedBox(width: 20),
-          itemBuilder: (context, index) {
-            final destination = BestDestination.cards[index];
-            return AnimationConfiguration.staggeredList(
-              position: index,
-              duration: const Duration(milliseconds: 350),
-              child: SlideAnimation(
-                horizontalOffset: 40.0,
-                curve: Curves.easeOutCubic,
-                child: FadeInAnimation(
-                  child: _buildCard(context, destination),
-                ),
-              ),
-            );
-          },
-        ),
-      ),
+    return StreamBuilder<List<BestDestination>>(
+      stream: SavedService.stream,
+      builder: (context, snapshot) {
+        final saved = snapshot.data ?? [];
+
+        if (saved.isEmpty) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 85, top: 10),
+            child:Column(
+              
+              children: [
+                Lottie.asset('assets/images/bear.json', width: 200, height: 150),
+                Text('No Saved Recommended Yet',style: TextStyle(color: AppColors.greyColor),)
+              ],
+            )
+            
+
+          );
+        }
+
+        return SizedBox(
+          height: 420,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            itemCount: saved.length,
+            separatorBuilder: (_, __) => const SizedBox(width: 20),
+            itemBuilder: (context, index) {
+              final destination = saved[index];
+              return _buildCard(context, destination);
+            },
+          ),
+        );
+      },
     );
   }
 
   Widget _buildCard(BuildContext context, BestDestination destination) {
     return GestureDetector(
       onTap: () {
-  context.push(
-    Routes.cardDetails,
-    extra: {
-      "card": destination,
-      "tag": destination.image,
-    },
-  );
-},
-
+        context.push(Routes.cardDetails,
+            extra: {"card": destination, "tag": destination.image});
+      },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
         width: 268,
@@ -65,16 +70,15 @@ class HomeListWidget extends StatelessWidget {
               blurRadius: 6,
               spreadRadius: 1,
               offset: const Offset(-1, 3),
-            ),
+            )
           ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(15),
-              ),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(15)),
               child: Hero(
                 tag: destination.image,
                 child: Image.asset(

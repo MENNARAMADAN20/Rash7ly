@@ -51,6 +51,7 @@ class SavedplacesScreen extends StatelessWidget {
                       image: savedplaces[index].image ?? AppAssets.error,
                       title: savedplaces[index].title ?? 'Unknown',
                       location: savedplaces[index].location ?? 'Unknown',
+                      category: savedplaces[index].category ?? 'Unknown',
                     );
                   },
                 ),

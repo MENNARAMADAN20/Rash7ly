@@ -4,12 +4,18 @@ import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/home/model/saved_recomm/saved_service.dart';
 import 'package:rash7ly/features/home/widgets/arrow_back_app_bar.dart';
 
-class SavedRecommendationsScreen extends StatelessWidget {
+class SavedRecommendationsScreen extends StatefulWidget {
   const SavedRecommendationsScreen({super.key});
 
   @override
+  State<SavedRecommendationsScreen> createState() => _SavedRecommendationsScreenState();
+}
+
+class _SavedRecommendationsScreenState extends State<SavedRecommendationsScreen> {
+  @override
   Widget build(BuildContext context) {
-        final saved = SavedService.saved;
+    final saved = SavedService.saved;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,

@@ -33,7 +33,18 @@ class _MainScreenState extends State<MainScreen> {
     currentIndex = widget.initialPageIndex ?? 0;
   }
 
-  void _showCreatePostSheet(BuildContext context) {
+  void _showRecommendPlaceSheet(BuildContext context) {
+    final List<String> categories = [
+      "Beaches",
+      "Cafes",
+      "Mountains",
+      "Cities",
+      "Natural Park",
+      "Historical Places",
+    ];
+
+    String? selectedCategory;
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -42,119 +53,165 @@ class _MainScreenState extends State<MainScreen> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
       ),
       builder: (context) {
-        return Padding(
-          padding: EdgeInsets.only(
-            left: 20,
-            right: 20,
-            top: 25,
-            bottom: MediaQuery.of(context).viewInsets.bottom + 20,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Container(
-                    height: 5,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Center(
-                  child: Text(
-                    "Create New Post",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 25),
-                Container(
-                  height: 180,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(color: Colors.grey.shade300, width: 1.2),
-                  ),
-                  child: const Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.image_outlined, size: 50, color: Colors.grey),
-                        SizedBox(height: 10),
-                        Text("Tap to upload image", style: TextStyle(color: Colors.grey)),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                TextField(
-                  maxLines: 3,
-                  decoration: InputDecoration(
-                    hintText: "Write something about your post...",
-                    filled: true,
-                    fillColor: Colors.grey[100],
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(
-                        color: Colors.grey.shade300,
-                        width: 1.2,
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Padding(
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 25,
+                bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Container(
+                        height: 5,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                     ),
-                    contentPadding: const EdgeInsets.all(12),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  height: 55,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(color: Colors.grey.shade300, width: 1.2),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: const Row(
-                    children: [
-                      Icon(Icons.location_on_outlined, color: Colors.redAccent),
-                      SizedBox(width: 10),
-                      Text("Add your location", style: TextStyle(color: Colors.grey)),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 30),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      shape: RoundedRectangleBorder(
+                    const SizedBox(height: 20),
+                    const Center(
+                      child: Text(
+                        "Recommend a New Place",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 25),
+                    Container(
+                      height: 180,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
                         borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: Colors.grey.shade300, width: 1.2),
+                      ),
+                      child: const Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.image_outlined, size: 50, color: Colors.grey),
+                            SizedBox(height: 10),
+                            Text("Tap to upload place image", style: TextStyle(color: Colors.grey)),
+                          ],
+                        ),
                       ),
                     ),
-                    child: const Text(
-                      "Post",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                    const SizedBox(height: 20),
+                    TextField(
+                      decoration: InputDecoration(
+                        hintText: "Place Name...",
+                        filled: true,
+                        fillColor: Colors.grey[100],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade300,
+                            width: 1.2,
+                          ),
+                        ),
+                        contentPadding: const EdgeInsets.all(12),
                       ),
                     ),
-                  ),
+                    const SizedBox(height: 20),
+                    TextField(
+                      maxLines: 3,
+                      decoration: InputDecoration(
+                        hintText: "Place Description...",
+                        filled: true,
+                        fillColor: Colors.grey[100],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade300,
+                            width: 1.2,
+                          ),
+                        ),
+                        contentPadding: const EdgeInsets.all(12),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: Colors.grey.shade300, width: 1.2),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: selectedCategory,
+                          hint: const Text("Select Category"),
+                          items: categories.map((cat) {
+                            return DropdownMenuItem(
+                              value: cat,
+                              child: Text(cat),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              selectedCategory = value;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      height: 55,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: Colors.grey.shade300, width: 1.2),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: const Row(
+                        children: [
+                          Icon(Icons.location_on_outlined, color: Colors.redAccent),
+                          SizedBox(width: 10),
+                          Text("Add Location", style: TextStyle(color: Colors.grey)),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        child: const Text(
+                          "Submit Recommendation",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         );
       },
     );
@@ -172,9 +229,7 @@ class _MainScreenState extends State<MainScreen> {
               child: FloatingActionButton(
                 onPressed: () {
                   if (currentIndex == 0) {
-                    _showCreatePostSheet(context);
-                  } else {
-
+                    _showRecommendPlaceSheet(context);
                   }
                 },
                 backgroundColor: AppColors.blueColor,
@@ -183,9 +238,7 @@ class _MainScreenState extends State<MainScreen> {
               ),
             )
           : null,
-
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
       bottomNavigationBar: BottomAppBar(
         color: AppColors.whiteColor,
         shape: const CircularNotchedRectangle(),

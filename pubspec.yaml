@@ -23,7 +23,10 @@ dependencies:
   gap: ^3.0.1
   go_router: ^16.2.4
   google_sign_in: ^7.2.0
+  image_picker: ^1.2.1
   lottie: ^3.3.2
+  map_launcher: ^4.4.2
+  maps_launcher: ^3.0.0+1
   pinput: ^5.0.2
   shared_preferences: ^2.5.3
   smooth_page_indicator: ^1.2.1
@@ -36,6 +39,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/images/bear.json
     - assets/images/
   fonts:
     - family: Poppins

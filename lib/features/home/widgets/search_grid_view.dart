@@ -9,10 +9,18 @@ import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/home/model/Best_destinations.dart';
 
 class SearchGridView extends StatelessWidget {
-  const SearchGridView({super.key});
+  final String searchText;
+
+  const SearchGridView({super.key, required this.searchText});
 
   @override
   Widget build(BuildContext context) {
+    final filtered = SearchCards.cards
+        .where((item) =>
+            item.name.toLowerCase().contains(searchText.toLowerCase()) ||
+            item.location.toLowerCase().contains(searchText.toLowerCase()))
+        .toList();
+
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -20,12 +28,29 @@ class SearchGridView extends StatelessWidget {
         mainAxisSpacing: 15,
         childAspectRatio: 161 / 190,
       ),
-      itemCount: SearchCards.cards.length,
+      itemCount: filtered.length,
       itemBuilder: (context, index) {
-        final card = SearchCards.cards[index];
-        //! this GestureDetector added by ibrahim
+        final s = filtered[index];
+
+        final BestDestination card = BestDestination(
+          name: s.name,
+          city: s.location,
+          image: s.image,
+          rate: 4.5,
+          category: "General",
+        );
+
         return GestureDetector(
-          onTap: () => pushTo(context, Routes.cardDetails),
+          onTap: () {
+            pushTo(
+              context,
+              Routes.cardDetails,
+              {
+                "card": card,
+                "tag": s.name,
+              },
+            );
+          },
           child: Container(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
@@ -47,13 +72,12 @@ class SearchGridView extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.asset(
-                        card.image,
+                        s.image,
                         width: 160,
                         height: 124,
                         fit: BoxFit.cover,
                       ),
                     ),
-
                     Gap(5),
                     Padding(
                       padding: const EdgeInsets.only(left: 7),
@@ -61,19 +85,18 @@ class SearchGridView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            card.name,
+                            s.name,
                             style: TextStyles.getSize16(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                             ),
-                            textAlign: TextAlign.center,
                           ),
                           Row(
                             children: [
                               SvgPicture.asset(AppAssets.locationIconSvg),
                               Gap(4),
                               Text(
-                                card.location,
+                                s.location,
                                 style: TextStyles.getSize12(
                                   fontSize: 13,
                                   color: AppColors.greyColor,
@@ -85,7 +108,7 @@ class SearchGridView extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                card.pricePerPerson,
+                                s.pricePerPerson,
                                 style: TextStyle(color: AppColors.blueColor),
                               ),
                               Text(
