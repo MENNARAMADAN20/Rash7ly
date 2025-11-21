@@ -14,19 +14,23 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  String searchText = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.whiteColor,
         leadingWidth: 60,
-        leading: ArrowBackAppBar(backgroundColor: AppColors.lightGreyColor,iconColor: AppColors.darkModeColor,),
+        leading: ArrowBackAppBar(
+          backgroundColor: AppColors.lightGreyColor,
+          iconColor: AppColors.darkModeColor,
+        ),
         title: Text(
           "Search",
           style: TextStyles.getSize18(fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
-        
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -34,7 +38,13 @@ class _SearchScreenState extends State<SearchScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
-                child: SearchBarWidget(),
+                child: SearchBarWidget(
+                  onSearch: (value) {
+                    setState(() {
+                      searchText = value;
+                    });
+                  },
+                ),
               ),
               Gap(10),
               Column(
@@ -55,9 +65,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
-                      
                       height: 600,
-                      child: SearchGridView(),
+                      child: SearchGridView(searchText: searchText),
                     ),
                   ),
                 ],

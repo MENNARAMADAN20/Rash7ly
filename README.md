@@ -1,5 +1,17 @@
 # Rasha7ly (رشحلي)
 
+## 📌 Screenshots
+![Categories](assets/screens/categories.jpg)
+![Details](assets/screens/Details.jpg)
+![Home](assets/screens/Home.jpg)
+![Notification](assets/screens/Notification.jpg)
+![Profile](assets/screens/Profile.jpg)
+![Scearch](assets/screens/Search.jpg)
+![Splash](assets/screens/Splash.jpg)
+![Verfiication](assets/screens/Verification.jpg)
+
+---
+
 ## 📌 About the Project
 Rasha7ly is a **recommendation app** that helps users when they are confused or undecided.  
 If someone wants to go out with friends and doesn’t know where to go, they can simply open the app, choose their area, and browse recommendations shared by other users.
@@ -58,5 +70,7 @@ We aim to build a community-driven platform where recommendations are rewarded a
 ---
 
 ## ⚠️ Note
-This project is still in the **planning stage**.  
-Features and categories are **subject to change** as we continue exploring ideas and deciding the final scope of the application.  
+The core part of the project has been completed, but many features are still under development.  
+We plan to continue adding new functionalities and expanding the app after graduation.  
+Features and categories are **subject to change** as we refine the final scope of the application.
+

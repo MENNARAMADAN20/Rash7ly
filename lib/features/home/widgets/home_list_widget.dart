@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -31,7 +30,9 @@ class HomeListWidget extends StatelessWidget {
               child: SlideAnimation(
                 horizontalOffset: 40.0,
                 curve: Curves.easeOutCubic,
-                child: FadeInAnimation(child: _buildCard(context, destination)),
+                child: FadeInAnimation(
+                  child: _buildCard(context, destination),
+                ),
               ),
             );
           },
@@ -40,11 +41,18 @@ class HomeListWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(BuildContext context,BestDestination destination) {
+  Widget _buildCard(BuildContext context, BestDestination destination) {
     return GestureDetector(
       onTap: () {
-        context.push( Routes.cardDetails,extra: destination);
-      },
+  context.push(
+    Routes.cardDetails,
+    extra: {
+      "card": destination,
+      "tag": destination.image,
+    },
+  );
+},
+
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
         width: 268,
@@ -60,15 +68,15 @@ class HomeListWidget extends StatelessWidget {
             ),
           ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(15),
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(15),
+              ),
+              child: Hero(
+                tag: destination.image,
                 child: Image.asset(
                   destination.image,
                   height: 286,
@@ -76,80 +84,77 @@ class HomeListWidget extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            destination.name,
-                            style: TextStyles.getSize16(
-                              fontWeight: FontWeight.w500,
-                            ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          destination.name,
+                          style: TextStyles.getSize16(
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-                        Row(
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.star,
+                              size: 18, color: Colors.amber),
+                          const Gap(1.5),
+                          Text(
+                            destination.rate.toString(),
+                            style: TextStyles.getSize16(),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const Gap(10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(
-                              Icons.star,
-                              size: 18,
-                              color: Colors.amber,
+                            Row(
+                              children: [
+                                SvgPicture.asset(AppAssets.locationIconSvg),
+                                const Gap(2),
+                                Text(
+                                  destination.category,
+                                  style: TextStyles.getSize12(
+                                    color: AppColors.greyColor,
+                                  ),
+                                ),
+                              ],
                             ),
-                            const Gap(1.5),
-                            Text(
-                              destination.rate.toString(),
-                              style: TextStyles.getSize16(),
+                            const Gap(5),
+                            Row(
+                              children: [
+                                SvgPicture.asset(AppAssets.locationIconSvg),
+                                const Gap(2),
+                                Text(
+                                  destination.city,
+                                  style: TextStyles.getSize12(
+                                    color: AppColors.greyColor,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                    const Gap(10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  SvgPicture.asset(AppAssets.locationIconSvg),
-                                  const Gap(2),
-                                  Text(
-                                    destination.category,
-                                    style: TextStyles.getSize12(
-                                      color: AppColors.greyColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const Gap(5),
-                              Row(
-                                children: [
-                                  SvgPicture.asset(AppAssets.locationIconSvg),
-                                  const Gap(2),
-                                  Text(
-                                    destination.city,
-                                    style: TextStyles.getSize12(
-                                      color: AppColors.greyColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        SvgPicture.asset(AppAssets.groupIconSvg),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                      SvgPicture.asset(AppAssets.groupIconSvg),
+                    ],
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -34,6 +34,8 @@ class Routes {
   static const String profile = '/profile_screen';
   static const String savedRecommendations = '/saved_recommendations.dart';
   static const String main = '/main';
+  static const String BestDestinationsViewAll = '/best_destination';
+  static const String popularPlacesViewAll = '/popular_place';
 
   //! by ibrahim
   static const String mainScreen = '/MainScreen';
@@ -83,6 +85,10 @@ class Routes {
         path: categories,
         builder: (context, state) => CategoriesScreen(),
       ),
+      
+
+
+      
       GoRoute(
         path: categoryType,
         builder: (context, state) {
@@ -98,12 +104,16 @@ class Routes {
       //! by ibrahim
       GoRoute(path: mainScreen, builder: (context, state) => MainScreen()),
       GoRoute(
-        path: cardDetails,
-        builder: (context, state) {
-          final card = state.extra as BestDestination;
-          return CardDetails(card: card);
-        },
-      ),
+  path: Routes.cardDetails,
+  builder: (context, state) {
+    final data = state.extra as Map;
+    final BestDestination card = data["card"];
+    final String tag = data["tag"];
+
+    return CardDetails(card: card, tag: tag);
+  },
+),
+
       GoRoute(
         path: savedRecommendations,
         builder: (context, state) => SavedRecommendationsScreen(),

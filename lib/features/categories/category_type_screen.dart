@@ -44,6 +44,7 @@ class CategoryTypeScreen extends StatelessWidget {
                   image: places[index].image ?? AppAssets.error,
                   title: places[index].title ?? 'Unknown',
                   location: places[index].location ?? 'Unknown',
+                  category: places[index].location ?? 'Unknown',
                 );
               },
             ),

@@ -6,6 +6,21 @@ import 'package:rash7ly/core/routes/navigation.dart';
 import 'package:rash7ly/core/routes/routes.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
+import 'package:rash7ly/features/home/model/Best_destinations.dart';
+
+class SavedService {
+  static final Set<String> _savedTitles = {};
+
+  static bool isSaved(String title) => _savedTitles.contains(title);
+
+  static void toggleSaved(String title) {
+    if (isSaved(title)) {
+      _savedTitles.remove(title);
+    } else {
+      _savedTitles.add(title);
+    }
+  }
+}
 
 class PlaceItem extends StatefulWidget {
   const PlaceItem({
@@ -13,40 +28,52 @@ class PlaceItem extends StatefulWidget {
     required this.image,
     required this.title,
     required this.location,
+    required this.category,
   });
 
   final String image;
   final String title;
   final String location;
+  final String category;
 
   @override
   State<PlaceItem> createState() => _PlaceItemState();
 }
 
 class _PlaceItemState extends State<PlaceItem> {
-  bool isfav = false;
-
   @override
   Widget build(BuildContext context) {
+    final isFav = SavedService.isSaved(widget.title);
+
     return GestureDetector(
-      onTap: () => pushTo(context, Routes.cardDetails),
+      onTap: () {
+        final BestDestination card = BestDestination(
+          name: widget.title,
+          city: widget.location,
+          image: widget.image,
+          category: widget.category,
+          rate: 0,
+        );
+        pushTo(context, Routes.cardDetails, {'card': card, 'tag': widget.title});
+      },
       child: Stack(
         children: [
           Container(
+            width: 180,
+            height: 250,
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: Colors.black12,
                   blurRadius: 5,
-                  offset: const Offset(2, 3),
+                  offset: Offset(2, 3),
                 ),
               ],
             ),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipRRect(
@@ -61,46 +88,62 @@ class _PlaceItemState extends State<PlaceItem> {
                   ),
                 ),
                 const Gap(8),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.title,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyles.getSize16(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const Gap(4),
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            AppAssets.locationIconSvg,
-                            height: 16,
-                            colorFilter: ColorFilter.mode(
-                              AppColors.greyColor,
-                              BlendMode.srcIn,
-                            ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyles.getSize16(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
                           ),
-                          const Gap(5),
-                          Expanded(
-                            child: Text(
-                              widget.location,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyles.getSize12(
-                                fontSize: 13,
-                                color: AppColors.greyColor,
+                        ),
+                        const Gap(4),
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              AppAssets.locationIconSvg,
+                              height: 16,
+                              colorFilter: ColorFilter.mode(AppColors.greyColor, BlendMode.srcIn),
+                            ),
+                            const Gap(5),
+                            Expanded(
+                              child: Text(
+                                widget.location,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyles.getSize12(
+                                  fontSize: 13,
+                                  color: AppColors.greyColor,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                        const Gap(2),
+                        Row(
+                          children: [
+                            Icon(Icons.category_outlined, size: 16, color: AppColors.greyColor),
+                            const Gap(4),
+                            Expanded(
+                              child: Text(
+                                widget.category,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyles.getSize12(
+                                  fontSize: 13,
+                                  color: AppColors.greyColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -112,13 +155,14 @@ class _PlaceItemState extends State<PlaceItem> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  isfav = !isfav;
+                  SavedService.toggleSaved(widget.title);
                 });
+                _showSavedDialog();
               },
               child: CircleAvatar(
-                backgroundColor: AppColors.whiteColor.withValues(alpha: 0.5),
+                backgroundColor: AppColors.whiteColor.withOpacity(0.5),
                 child: Icon(
-                  isfav ? Icons.favorite : Icons.favorite_outline,
+                  isFav ? Icons.favorite : Icons.favorite_outline,
                   color: Colors.red,
                 ),
               ),
@@ -126,6 +170,41 @@ class _PlaceItemState extends State<PlaceItem> {
           ),
         ],
       ),
+    );
+  }
+
+  void _showSavedDialog() {
+    final isFav = SavedService.isSaved(widget.title);
+    final message = isFav
+        ? "${widget.title} Added to favorites!"
+        : "${widget.title} removed from favorites!";
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      builder: (context) {
+        return Container(
+          height: 100,
+          margin: const EdgeInsets.only(bottom: 20, left: 15, right: 15),
+          padding: const EdgeInsets.all(18),
+          decoration: BoxDecoration(
+            color: AppColors.blueColor,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Center(
+            child: Text(
+              message,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      },
     );
   }
 }

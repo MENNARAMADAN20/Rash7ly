@@ -4,13 +4,21 @@ import 'package:rash7ly/components/buttons/main_button.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
 import 'package:rash7ly/core/routes/navigation.dart';
 import 'package:rash7ly/core/routes/routes.dart';
+import 'package:rash7ly/core/services/local/local_helper.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/Profile/presentation/widgets/profile_field.dart';
 import 'package:rash7ly/features/auth/data/repo/auth_repo.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class ProfileScreen extends StatefulWidget {
+  ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final user = LocalHelper.getUserData();
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +37,22 @@ class ProfileScreen extends StatelessWidget {
         children: [
           //! this override by ibrahim
           // upperprofile(),
-          Image.asset(AppAssets.personProfile),
+          if (user?.photoUrl != null)
+            CircleAvatar(
+              radius: 50,
+              backgroundImage: NetworkImage(user!.photoUrl!),
+            )
+          else
+            Image.asset(AppAssets.personProfile),
           Text(
-            'Leonardo',
+            user?.name ?? 'User Name',
             style: TextStyles.getSize24(
               fontWeight: FontWeight.w500,
               color: AppColors.blackColor,
             ),
           ),
           Text(
-            'Leonardo@gmail.com',
+            user?.email ?? 'Leonardo@gmail.com',
             style: TextStyles.getSize18(
               fontWeight: FontWeight.normal,
               color: AppColors.greyColor,
