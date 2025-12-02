@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/Profile/presentation/profile_page/profile_screen.dart';
+import 'package:rash7ly/features/home/bloc/home_bloc.dart';
 import 'package:rash7ly/features/home/presentation/categories/categories_screen.dart';
 import 'package:rash7ly/features/home/presentation/home/home_screen.dart';
 import 'package:rash7ly/features/home/presentation/search/search_screen.dart';
@@ -31,6 +33,8 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     currentIndex = widget.initialPageIndex ?? 0;
+
+    BlocProvider.of<HomeBloc>(context).add(GetUserEvent());
   }
 
   void _showCreatePostSheet(BuildContext context) {
@@ -87,9 +91,16 @@ class _MainScreenState extends State<MainScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.image_outlined, size: 50, color: Colors.grey),
+                        Icon(
+                          Icons.image_outlined,
+                          size: 50,
+                          color: Colors.grey,
+                        ),
                         SizedBox(height: 10),
-                        Text("Tap to upload image", style: TextStyle(color: Colors.grey)),
+                        Text(
+                          "Tap to upload image",
+                          style: TextStyle(color: Colors.grey),
+                        ),
                       ],
                     ),
                   ),
@@ -124,7 +135,10 @@ class _MainScreenState extends State<MainScreen> {
                     children: [
                       Icon(Icons.location_on_outlined, color: Colors.redAccent),
                       SizedBox(width: 10),
-                      Text("Add your location", style: TextStyle(color: Colors.grey)),
+                      Text(
+                        "Add your location",
+                        style: TextStyle(color: Colors.grey),
+                      ),
                     ],
                   ),
                 ),
@@ -173,9 +187,7 @@ class _MainScreenState extends State<MainScreen> {
                 onPressed: () {
                   if (currentIndex == 0) {
                     _showCreatePostSheet(context);
-                  } else {
-
-                  }
+                  } else {}
                 },
                 backgroundColor: AppColors.blueColor,
                 shape: const CircleBorder(),

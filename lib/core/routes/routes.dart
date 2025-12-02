@@ -7,6 +7,7 @@ import 'package:rash7ly/features/auth/presentation/pages/forgot_password/forgot_
 import 'package:rash7ly/features/auth/presentation/pages/login/login_screen.dart';
 import 'package:rash7ly/features/auth/presentation/pages/otp/otp_screen.dart';
 import 'package:rash7ly/features/auth/presentation/pages/register/register_screen.dart';
+import 'package:rash7ly/features/home/bloc/home_bloc.dart';
 import 'package:rash7ly/features/home/presentation/card_details/card_details.dart';
 import 'package:rash7ly/features/home/presentation/categories/categories_screen.dart';
 import 'package:rash7ly/features/home/presentation/categories/category_type_screen.dart';
@@ -74,7 +75,11 @@ class Routes {
           child: OtpScreen(),
         ),
       ),
-      GoRoute(path: home, builder: (context, state) => HomeScreen()),
+      GoRoute(
+        path: home,
+        builder: (context, state) =>
+            BlocProvider(create: (context) => HomeBloc(), child: HomeScreen()),
+      ),
       GoRoute(path: search, builder: (context, state) => SearchScreen()),
       GoRoute(
         path: categories,
@@ -93,7 +98,11 @@ class Routes {
       ),
       GoRoute(path: profile, builder: (context, state) => ProfileScreen()),
       //! by ibrahim
-      GoRoute(path: mainScreen, builder: (context, state) => MainScreen()),
+      GoRoute(
+        path: mainScreen,
+        builder: (context, state) =>
+            BlocProvider(create: (context) => HomeBloc(), child: MainScreen()),
+      ),
       GoRoute(path: cardDetails, builder: (context, state) => CardDetails()),
     ],
   );

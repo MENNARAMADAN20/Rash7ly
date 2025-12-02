@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart' as fb;
 
 class UserModel {
+  //! remove final by ibrahim
   final String id;
-  final String email;
-  final String name;
-  final String? photoUrl;
-  final String? provider; // e.g. "google", "facebook", "twitter", "email"
+  String email;
+  String name;
+  String? photoUrl;
+  String? provider; // e.g. "google", "facebook", "twitter", "email"
 
   UserModel({
     required this.id,

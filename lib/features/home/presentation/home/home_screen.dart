@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
+import 'package:rash7ly/features/auth/data/models/user_model.dart';
+import 'package:rash7ly/features/home/bloc/home_bloc.dart';
 import 'package:rash7ly/features/home/widgets/home_list_widget.dart';
 import 'package:rash7ly/features/home/widgets/home_text_row.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -176,6 +180,166 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
+          // <<<<<<< HEAD
+          //         ),
+          //         actions: [
+          //           //! this gesturedetector by ibrahim
+          //           GestureDetector(
+          //             // push to notification screen
+          //             // onTap: () => pushTo(context, route),
+          //             child: Container(
+          //               margin: const EdgeInsets.only(top: 10, right: 15),
+          //               width: 44,
+          //               height: 44,
+          //               decoration: BoxDecoration(
+          //                 color: AppColors.lightGreyColor,
+          //                 borderRadius: BorderRadius.circular(50),
+          //               ),
+          //               child: Row(
+          //                 mainAxisAlignment: MainAxisAlignment.center,
+          //                 children: [SvgPicture.asset(AppAssets.notificationIconSvg)],
+          //               ),
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //       //! this override by ibrahim
+          //       // floatingActionButton: Transform.translate(
+          //       //   offset: Offset(5, 30),
+          //       //   child: FloatingActionButton(
+          //       //     onPressed: () {},
+          //       //     backgroundColor: AppColors.blueColor,
+          //       //     shape: CircleBorder(),
+          //       //     child: Icon(Icons.add, size: 30, color: Colors.white),
+          //       //   ),
+          //       // ),
+          //       // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          //       // bottomNavigationBar: BottomAppBar(
+          //       //   color: AppColors.whiteColor,
+          //       //   child: SizedBox(
+          //       //     height: 70,
+          //       //     child: Row(
+          //       //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //       //       children: [
+          //       //         Column(
+          //       //           mainAxisAlignment: MainAxisAlignment.center,
+          //       //           children: [
+          //       //             SvgPicture.asset(
+          //       //               AppAssets.homeIconSvg,
+          //       //               colorFilter: ColorFilter.mode(
+          //       //                 AppColors.blueColor,
+          //       //                 BlendMode.srcIn,
+          //       //               ),
+          //       //             ),
+          //       //             Text(
+          //       //               "Home",
+          //       //               style: TextStyles.getSize12(color: AppColors.blueColor),
+          //       //             ),
+          //       //           ],
+          //       //         ),
+          //       //         GestureDetector(
+          //       //           onTap: () => pushTo(context, Routes.categories), // ibrahim edit
+          //       //           child: Column(
+          //       //             mainAxisAlignment: MainAxisAlignment.center,
+          //       //             children: [
+          //       //               SvgPicture.asset(
+          //       //                 AppAssets.categoriesSvg,
+          //       //                 colorFilter: ColorFilter.mode(
+          //       //                   AppColors.greyColor,
+          //       //                   BlendMode.srcIn,
+          //       //                 ),
+          //       //               ),
+          //       //               Text(
+          //       //                 "Categories",
+          //       //                 style: TextStyles.getSize12(color: AppColors.greyColor),
+          //       //               ),
+          //       //             ],
+          //       //           ),
+          //       //         ),
+          //       //         SizedBox(width: 40),
+          //       //         GestureDetector(
+          //       //           onTap: () {
+          //       //             pushTo(context, Routes.search);
+          //       //           },
+          //       //           child: Column(
+          //       //             mainAxisSize: MainAxisSize.min,
+          //       //             children: [
+          //       //               SvgPicture.asset(
+          //       //                 AppAssets.searchIconSvg,
+          //       //                 height: 24,
+          //       //                 colorFilter: ColorFilter.mode(
+          //       //                   AppColors.greyColor,
+          //       //                   BlendMode.srcIn,
+          //       //                 ),
+          //       //               ),
+          //       //               SizedBox(height: 4),
+          //       //               Text(
+          //       //                 'Search',
+          //       //                 style: TextStyles.getSize12(color: AppColors.greyColor),
+          //       //               ),
+          //       //             ],
+          //       //           ),
+          //       //         ),
+          //       //         GestureDetector(
+          //       //           onTap: () {
+          //       //              pushTo(context, Routes.profile);
+          //       //           },
+          //       //           child: Column(
+          //       //             mainAxisAlignment: MainAxisAlignment.center,
+          //       //             children: [
+          //       //               SvgPicture.asset(
+          //       //                 AppAssets.profileIconSvg,
+          //       //                 colorFilter: ColorFilter.mode(
+          //       //                   AppColors.greyColor,
+          //       //                   BlendMode.srcIn,
+          //       //                 ),
+          //       //               ),
+          //       //               Text(
+          //       //                 "Profile",
+          //       //                 style: TextStyles.getSize12(color: AppColors.greyColor),
+          //       //               ),
+          //       //             ],
+          //       //           ),
+          //       //         ),
+          //       //       ],
+          //       //     ),
+          //       //   ),
+          //       // ),
+          //       body: SingleChildScrollView(
+          //         child: Column(
+          //           crossAxisAlignment: CrossAxisAlignment.start,
+          //           children: [
+          //             Padding(
+          //               padding: const EdgeInsets.all(20),
+          //               child: Column(
+          //                 children: [SvgPicture.asset(AppAssets.homeTextSvg)],
+          //               ),
+          //             ),
+          //             Padding(
+          //               padding: const EdgeInsets.symmetric(horizontal: 20),
+          //               child: Row(
+          //                 children: [
+          //                   Expanded(
+          //                     child: Text(
+          //                       'Best Destination',
+          //                       style: TextStyles.getSize20(fontWeight: FontWeight.w600),
+          //                     ),
+          //                   ),
+          //                   TextButton(
+          //                     onPressed: () {},
+          //                     child: Text(
+          //                       'View all',
+          //                       style: TextStyle(color: AppColors.blueColor),
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //             Gap(1),
+          //             BestDestinationListWidget(),
+          //           ],
+          //         ),
+          // =======
         );
       },
     );
@@ -192,102 +356,155 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Transform.translate(
         offset: Offset(0, 50 * (1 - opacity)),
         child: child,
+        // >>>>>>> cdc2b05c0d612756d20dad6ed50b5c8db2cc4c34
       ),
     );
   }
 
+  //! vars by ibarahim
+  bool isLoading = true;
+  late UserModel user;
+
   @override
   Widget build(BuildContext context) {
+    var bloc = context.read<HomeBloc>();
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              controller: _scrollController,
-              padding: const EdgeInsets.only(top: 80),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      children: [SvgPicture.asset(AppAssets.homeTextSvg)],
-                    ),
-                  ),
-                  HomeTextRow(RowText: 'Best Destination'),
-                  HomeListWidget(),
-                  const Gap(20),
-                  _animatedCardWrapper(
-                    HomeTextRow(RowText: 'Saved Recommendations'),
-                    0,
-                  ),
-                  _animatedCardWrapper(HomeListWidget(), 2),
-                  const Gap(10),
-                  _animatedCardWrapper(
-                    HomeTextRow(RowText: 'Popular Package'),
-                    4,
-                  ),
-                  _animatedCardWrapper(HomeListWidget(), 2),
-                ],
-              ),
-            ),
-
-            Opacity(
-              opacity: _appBarOpacity,
-              child: Container(
-                height: 80,
-                color: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 10,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: 130,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: AppColors.lightGreyColor,
-                        borderRadius: BorderRadius.circular(20),
+      body: BlocConsumer<HomeBloc, HomeState>(
+        listener: (context, state) {
+          if (state is GetUserLoadingState) {
+            isLoading = true;
+          } else if (state is GetUserSuccessState) {
+            isLoading = false;
+            user = state.userModel!;
+          }
+        },
+        builder: (context, state) {
+          return SafeArea(
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  controller: _scrollController,
+                  padding: const EdgeInsets.only(top: 80),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          children: [SvgPicture.asset(AppAssets.homeTextSvg)],
+                        ),
                       ),
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(AppAssets.profilePicSvg),
-                          const Gap(5),
-                          Text(
-                            'Leonardo',
-                            style: TextStyles.getSize12(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
+                      HomeTextRow(RowText: 'Best Destination'),
+                      HomeListWidget(),
+                      const Gap(20),
+                      _animatedCardWrapper(
+                        HomeTextRow(RowText: 'Saved Recommendations'),
+                        0,
+                      ),
+                      _animatedCardWrapper(HomeListWidget(), 2),
+                      const Gap(10),
+                      _animatedCardWrapper(
+                        HomeTextRow(RowText: 'Popular Package'),
+                        4,
+                      ),
+                      _animatedCardWrapper(HomeListWidget(), 2),
+                    ],
+                  ),
+                ),
+
+                Opacity(
+                  opacity: _appBarOpacity,
+                  child: Container(
+                    height: 80,
+                    color: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 10,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          // width: 130,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: AppColors.lightGreyColor,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Row(
+                            children: [
+                              if (isLoading == false) ...{
+                                Container(
+                                  width: 50,
+                                  height: 50,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: SvgPicture.asset(
+                                    AppAssets.profilePicSvg,
+                                  ),
+                                ),
+                                // SvgPicture.asset(
+                                //   AppAssets.profilePicSvg,
+                                // ),
+                                const Gap(10),
+                                Text(
+                                  user.name,
+                                  style: TextStyles.getSize12(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              } else ...{
+                                Shimmer.fromColors(
+                                  baseColor: Colors.grey.shade300,
+                                  highlightColor: Colors.grey.shade100,
+                                  child: Container(
+                                    width: 50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                                // const Gap(10),
+                                Shimmer.fromColors(
+                                  baseColor: Colors.grey.shade300,
+                                  highlightColor: Colors.grey.shade100,
+                                  child: Container(
+                                    height: 18,
+                                    width: 100,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              },
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: 44,
+                          height: 44,
+                          decoration: BoxDecoration(
+                            color: AppColors.lightGreyColor,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Center(
+                            child: SvgPicture.asset(
+                              AppAssets.notificationIconSvg,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Container(
-                      width: 44,
-                      height: 44,
-                      decoration: BoxDecoration(
-                        color: AppColors.lightGreyColor,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Center(
-                        child: SvgPicture.asset(AppAssets.notificationIconSvg),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
-
-      
-
-      
     );
   }
 }
