@@ -44,6 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             )
           else
             Image.asset(AppAssets.personProfile),
+          Gap(10),
           Text(
             user?.name ?? 'User Name',
             style: TextStyles.getSize24(
@@ -51,6 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: AppColors.blackColor,
             ),
           ),
+          Gap(15),
           Text(
             user?.email ?? 'Leonardo@gmail.com',
             style: TextStyles.getSize18(
@@ -59,13 +61,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           Gap(100),
-          ProfileField(
-            text: "Edit profile",
-            icon: Icons.person_outline_outlined,
+          GestureDetector(
+            onTap: () {
+              pushTo(context, Routes.editprofile);
+            },
+            child: ProfileField(
+              text: "Edit profile",
+              icon: Icons.person_outline_outlined,
+            ),
           ),
           Gap(3),
           GestureDetector(
             onTap: () {
+              
               pushTo(context, Routes.savedRecommendations);
             },
             child: ProfileField(

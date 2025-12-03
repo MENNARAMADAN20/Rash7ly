@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rash7ly/features/Profile/presentation/profile_page/edit_profile/edit_profile.dart';
 import 'package:rash7ly/features/Profile/presentation/profile_page/profile_screen.dart';
 import 'package:rash7ly/features/auth/bloc/auth_bloc.dart';
 import 'package:rash7ly/features/auth/data/repo/auth_repo.dart';
@@ -36,6 +37,7 @@ class Routes {
   static const String main = '/main';
   static const String BestDestinationsViewAll = '/best_destination';
   static const String popularPlacesViewAll = '/popular_place';
+  static const String editprofile = '/edit_profile';
 
   //! by ibrahim
   static const String mainScreen = '/MainScreen';
@@ -117,6 +119,10 @@ class Routes {
       GoRoute(
         path: savedRecommendations,
         builder: (context, state) => SavedRecommendationsScreen(),
+      ),
+      GoRoute(
+        path: editprofile,
+        builder: (context, state) => EditProfile(),
       ),
     ],
   );
