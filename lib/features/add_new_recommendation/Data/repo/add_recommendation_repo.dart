@@ -41,6 +41,8 @@ class AddRecommendationRepo {
       'category': category,
       'images': urls,
       'userId': userId,
+      'BestDestinations': false,
+      'PopularPackage': false,
       'createdAt': FieldValue.serverTimestamp(),
     };
 

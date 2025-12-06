@@ -6,8 +6,11 @@ class Recommendation {
   final String description;
   final String location;
   final String category;
-  final List<String> images; // urls (can be local paths placeholder until upload)
+  final List<String>
+  images; // urls (can be local paths placeholder until upload)
   final Timestamp? createdAt;
+  bool BestDestinations = false;
+  bool PopularPackage = false;
 
   Recommendation({
     required this.id,
@@ -17,17 +20,21 @@ class Recommendation {
     required this.category,
     this.images = const [],
     this.createdAt,
+    this.BestDestinations = false,
+    this.PopularPackage = false,
   });
 
   Map<String, dynamic> toMap() => {
-        'id': id,
-        'name': name,
-        'description': description,
-        'location': location,
-        'category': category,
-        'images': images,
-        'createdAt': createdAt ?? FieldValue.serverTimestamp(),
-      };
+    'id': id,
+    'name': name,
+    'description': description,
+    'location': location,
+    'category': category,
+    'images': images,
+    'createdAt': createdAt ?? FieldValue.serverTimestamp(),
+    'BestDestinations': BestDestinations,
+    'PopularPackage': PopularPackage,
+  };
 
   factory Recommendation.fromDoc(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
@@ -39,6 +46,8 @@ class Recommendation {
       category: data['category'] ?? '',
       images: List<String>.from(data['images'] ?? []),
       createdAt: data['createdAt'],
+      BestDestinations: data['BestDestinations'] ?? false,
+      PopularPackage: data['PopularPackage'] ?? false,
     );
   }
 }
