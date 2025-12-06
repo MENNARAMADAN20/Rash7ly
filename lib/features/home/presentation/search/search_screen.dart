@@ -31,11 +31,6 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.whiteColor,
-          leadingWidth: 60,
-          leading: ArrowBackAppBar(
-            backgroundColor: AppColors.lightGreyColor,
-            iconColor: AppColors.darkModeColor,
-          ),
           title: Text(
             "Explore",
             style: TextStyles.getSize18(fontWeight: FontWeight.w600),
