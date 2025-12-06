@@ -103,7 +103,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [SvgPicture.asset(AppAssets.homeTextSvg)],
                           ),
                         ),
-                        HomeTextRow(RowText: 'Best Destination'),
+                        HomeTextRow(RowText: 'Best Destinations'),
+                        Gap(5),
                         isloading
                             ? Container(
                                 height: 420,
@@ -119,6 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           HomeTextRow(RowText: 'Saved Recommendations'),
                           0,
                         ),
+                        Gap(5),
 
                         StreamBuilder<List<PlaceModel>>(
                           stream: SavedService.stream,
@@ -135,6 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           HomeTextRow(RowText: 'Popular Package'),
                           4,
                         ),
+                        Gap(5),
 
                         _animatedCardWrapper(
                           HomeListWidget(places: cubit.places),
@@ -164,21 +167,30 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             child: Row(
                               children: [
+                                const Gap(5),
                                 if (user?.photoUrl != null)
                                   CircleAvatar(
-                                    radius: 50,
+                                    radius: 24,
                                     backgroundImage: NetworkImage(
                                       user!.photoUrl!,
                                     ),
                                   )
                                 else
-                                  Image.asset(AppAssets.personProfile),
+                                  Image.asset(
+                                    AppAssets.personProfile,
+                                    width: 36,
+                                    height: 36,
+                                  ),
                                 const Gap(5),
-                                Text(
-                                  user?.name ?? 'User Name',
-                                  style: TextStyles.getSize12(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
+                                Expanded(
+                                  child: Text(
+                                    user?.name ?? 'User Name',
+                                    style: TextStyles.getSize12(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    // overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
                                   ),
                                 ),
                               ],

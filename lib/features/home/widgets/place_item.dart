@@ -81,11 +81,19 @@ class _PlaceItemState extends State<PlaceItem> {
                   borderRadius: BorderRadius.circular(10),
                   child: AspectRatio(
                     aspectRatio: 1.2,
-                    child: Image.asset(
-                      widget.image,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                    child: widget.image.startsWith('http')
+                        ? Image.network(
+                            widget.image,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                Image.asset(AppAssets.error, fit: BoxFit.cover),
+                          )
+                        : Image.asset(
+                            widget.image,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ),
                 const Gap(8),

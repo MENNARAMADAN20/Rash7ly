@@ -6,9 +6,8 @@ import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/auth/data/repo/auth_repo.dart';
 import 'package:rash7ly/features/home/bloc/home_bloc.dart';
 import 'package:rash7ly/features/home/data/repo/home_repo.dart';
-import 'package:rash7ly/features/home/widgets/arrow_back_app_bar.dart';
-import 'package:rash7ly/features/home/widgets/search_bar_widget.dart';
-import 'package:rash7ly/features/home/widgets/search_grid_view.dart';
+import 'package:rash7ly/features/search/presentation/widgets/search_bar_widget.dart';
+import 'package:rash7ly/features/search/presentation/widgets/search_grid_view.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});

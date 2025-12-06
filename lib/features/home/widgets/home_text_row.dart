@@ -21,20 +21,24 @@ class HomeTextRow extends StatelessWidget {
               style: TextStyles.getSize20(fontWeight: FontWeight.w600),
             ),
           ),
-          TextButton(
-            onPressed: () {
-              if (RowText == "Saved Recommendations") {
-                context.push(Routes.savedRecommendations);
+          GestureDetector(
+            onTap: () {
+              if (RowText == 'Best Destinations') {
+                context.push(Routes.search);
+                return;
+              }
+              if (RowText == 'Saved Recommendations') {
+                context.push(Routes.search);
+                return;
+              }
+              if (RowText == 'Popular Package') {
+                context.push(Routes.search);
+                return;
               }
             },
-            child: GestureDetector(
-              onTap: () {
-                context.push(Routes.search);
-              },
-              child: Text(
-                'View all',
-                style: TextStyle(color: AppColors.blueColor),
-              ),
+            child: Text(
+              'View all',
+              style: TextStyle(color: AppColors.blueColor),
             ),
           ),
         ],
