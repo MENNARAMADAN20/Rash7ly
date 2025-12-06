@@ -12,12 +12,12 @@ class UpdateProfile {
   }) async {
     final updates = <String, dynamic>{};
 
-    if (newName != null && newName.trim().isNotEmpty) {
-      updates['name'] = newName;
-    }
-
     if (newPhotoUrl != null && newPhotoUrl.trim().isNotEmpty) {
       updates['photoUrl'] = newPhotoUrl;
+    }
+
+    if (newName != null && newName.trim().isNotEmpty) {
+      updates['name'] = newName;
     }
 
     // 1) Update Firestore

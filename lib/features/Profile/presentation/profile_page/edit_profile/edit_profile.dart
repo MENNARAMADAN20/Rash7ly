@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rash7ly/components/formfields/auth_form_field.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
+import 'package:rash7ly/core/services/cloudinare_service/cloudinary_service.dart';
 import 'package:rash7ly/core/services/local/local_helper.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
@@ -22,6 +26,46 @@ class _EditProfileState extends State<EditProfile> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool isloading = false;
+  Future<void> _changeProfileImage() async {
+    try {
+      final picker = ImagePicker();
+      final picked = await picker.pickImage(source: ImageSource.gallery);
+
+      if (picked == null) return;
+
+      setState(() => isloading = true);
+
+      final file = File(picked.path);
+
+      // 1) رفع الصورة إلى Cloudinary
+      final cloudinary = CloudinaryService();
+      final imageUrl = await cloudinary.uploadFile(file);
+
+      // 2) تحديث الفايرستور + اللوكال
+      await UpdateProfile().updateProfile(
+        userId: user!.id,
+        newPhotoUrl: imageUrl,
+      );
+
+      // 3) تحديث local user object
+      user!.photoUrl = imageUrl;
+      LocalHelper.setUserData(user);
+
+      // 4) تحديث الواجهة
+      setState(() {});
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Profile photo updated")));
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Error: $e")));
+    } finally {
+      setState(() => isloading = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,13 +89,35 @@ class _EditProfileState extends State<EditProfile> {
           children: [
             // profile image with edit icon
             //  ProfileImage
-            if (user?.photoUrl != null)
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(user!.photoUrl!),
-              )
-            else
-              Image.asset(AppAssets.personProfile),
+            Stack(
+              alignment: Alignment.bottomRight,
+              children: [
+                // الصورة نفسها
+                CircleAvatar(
+                  radius: 60,
+                  backgroundImage: user?.photoUrl != null
+                      ? NetworkImage(user!.photoUrl!)
+                      : AssetImage(AppAssets.personProfile) as ImageProvider,
+                ),
+
+                // زر الكاميرا
+                GestureDetector(
+                  onTap: _changeProfileImage,
+                  child: Container(
+                    padding: EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: AppColors.blueColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.camera_alt,
+                      color: Colors.white,
+                      size: 22,
+                    ),
+                  ),
+                ),
+              ],
+            ),
             Gap(30),
             Text(
               user?.name ?? 'User Name',
