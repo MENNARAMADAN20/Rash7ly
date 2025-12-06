@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
-import 'package:rash7ly/features/home/model/Best_destinations.dart';
-import 'package:rash7ly/features/home/model/saved_recomm/saved_service.dart';
+// import 'package:rash7ly/features/home/data/model/Best_destinations.dart';
+import 'package:rash7ly/features/home/data/model/place_model.dart';
+import 'package:rash7ly/features/home/data/model/saved_recomm/saved_service.dart';
 import 'package:rash7ly/features/home/presentation/widgets/_build_icon.dart';
 
 class UpperCard extends StatefulWidget {
-  final BestDestination card;
+  final PlaceModel card;
   const UpperCard({super.key, required this.card});
   @override
   State<UpperCard> createState() => _UpperCardState();

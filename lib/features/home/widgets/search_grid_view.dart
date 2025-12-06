@@ -6,19 +6,27 @@ import 'package:rash7ly/core/routes/navigation.dart';
 import 'package:rash7ly/core/routes/routes.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
-import 'package:rash7ly/features/home/model/Best_destinations.dart';
+import 'package:rash7ly/features/home/data/model/Best_destinations.dart';
+import 'package:rash7ly/features/home/data/model/place_model.dart';
 
 class SearchGridView extends StatelessWidget {
   final String searchText;
+  final List<PlaceModel>? places;
 
-  const SearchGridView({super.key, required this.searchText});
+  const SearchGridView({
+    super.key,
+    required this.searchText,
+    required this.places,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final filtered = SearchCards.cards
-        .where((item) =>
-            item.name.toLowerCase().contains(searchText.toLowerCase()) ||
-            item.location.toLowerCase().contains(searchText.toLowerCase()))
+    final filtered = places!
+        .where(
+          (item) =>
+              item.title!.toLowerCase().contains(searchText.toLowerCase()) ||
+              item.location!.toLowerCase().contains(searchText.toLowerCase()),
+        )
         .toList();
 
     return GridView.builder(
@@ -30,26 +38,19 @@ class SearchGridView extends StatelessWidget {
       ),
       itemCount: filtered.length,
       itemBuilder: (context, index) {
-        final s = filtered[index];
+        final s_variable = filtered[index];
 
-        final BestDestination card = BestDestination(
-          name: s.name,
-          city: s.location,
-          image: s.image,
-          rate: 4.5,
-          category: "General",
-        );
+        // final PlaceModel card = PlaceModel(
+        //   title: s_variable.name,
+        //   location: s_variable.location,
+        //   gallery: [s_variable.image],
+        //   rating: 4.5,
+        //   category: "General",
+        // );
 
         return GestureDetector(
           onTap: () {
-            pushTo(
-              context,
-              Routes.cardDetails,
-              {
-                "card": card,
-                "tag": s.name,
-              },
-            );
+            pushTo(context, Routes.cardDetails, {"card": places![index]});
           },
           child: Container(
             padding: EdgeInsets.all(8),
@@ -72,7 +73,7 @@ class SearchGridView extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.asset(
-                        s.image,
+                        s_variable.gallery![0],
                         width: 160,
                         height: 124,
                         fit: BoxFit.cover,
@@ -85,7 +86,7 @@ class SearchGridView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            s.name,
+                            s_variable.title! ?? "unknown title",
                             style: TextStyles.getSize16(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -96,7 +97,7 @@ class SearchGridView extends StatelessWidget {
                               SvgPicture.asset(AppAssets.locationIconSvg),
                               Gap(4),
                               Text(
-                                s.location,
+                                s_variable.location! ?? "unknown location",
                                 style: TextStyles.getSize12(
                                   fontSize: 13,
                                   color: AppColors.greyColor,
@@ -108,7 +109,8 @@ class SearchGridView extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                s.pricePerPerson,
+                                // s_variable.pricePerPerson,
+                                '',
                                 style: TextStyle(color: AppColors.blueColor),
                               ),
                               Text(

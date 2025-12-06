@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
-import 'package:rash7ly/features/home/model/categories_class.dart';
+import 'package:rash7ly/features/home/data/model/categories_class.dart';
 import 'package:rash7ly/features/home/widgets/category_item.dart';
 
 class CategoriesScreen extends StatelessWidget {

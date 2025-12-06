@@ -19,7 +19,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final List<Widget> pages =  [
+  final List<Widget> pages = [
     HomeScreen(),
     CategoriesScreen(),
     SearchScreen(),
@@ -59,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
               _buildNavItem(AppAssets.homeIconSvg, "Home", 0),
               _buildNavItem(AppAssets.categoriesSvg, "Categories", 1),
               const SizedBox(width: 40),
-              _buildNavItem(AppAssets.searchIconSvg, "Search", 2),
+              _buildNavItem(AppAssets.searchIconSvg, "Explore", 2),
               _buildNavItem(AppAssets.profileIconSvg, "Profile", 3),
             ],
           ),

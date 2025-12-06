@@ -6,7 +6,8 @@ import 'package:rash7ly/core/routes/navigation.dart';
 import 'package:rash7ly/core/routes/routes.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
-import 'package:rash7ly/features/home/model/Best_destinations.dart';
+// import 'package:rash7ly/features/home/data/model/Best_destinations.dart';
+import 'package:rash7ly/features/home/data/model/place_model.dart';
 
 class SavedService {
   static final Set<String> _savedTitles = {};
@@ -47,14 +48,14 @@ class _PlaceItemState extends State<PlaceItem> {
 
     return GestureDetector(
       onTap: () {
-        final BestDestination card = BestDestination(
-          name: widget.title,
-          city: widget.location,
-          image: widget.image,
+        final PlaceModel card = PlaceModel(
+          title: widget.title,
+          location: widget.location,
+          gallery: [widget.image],
           category: widget.category,
-          rate: 0,
+          rating: 0,
         );
-        pushTo(context, Routes.cardDetails, {'card': card, 'tag': widget.title});
+        pushTo(context, Routes.cardDetails, {'card': card});
       },
       child: Stack(
         children: [
@@ -108,7 +109,10 @@ class _PlaceItemState extends State<PlaceItem> {
                             SvgPicture.asset(
                               AppAssets.locationIconSvg,
                               height: 16,
-                              colorFilter: ColorFilter.mode(AppColors.greyColor, BlendMode.srcIn),
+                              colorFilter: ColorFilter.mode(
+                                AppColors.greyColor,
+                                BlendMode.srcIn,
+                              ),
                             ),
                             const Gap(5),
                             Expanded(
@@ -127,7 +131,11 @@ class _PlaceItemState extends State<PlaceItem> {
                         const Gap(2),
                         Row(
                           children: [
-                            Icon(Icons.category_outlined, size: 16, color: AppColors.greyColor),
+                            Icon(
+                              Icons.category_outlined,
+                              size: 16,
+                              color: AppColors.greyColor,
+                            ),
                             const Gap(4),
                             Expanded(
                               child: Text(

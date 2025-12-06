@@ -8,7 +8,10 @@ import 'package:rash7ly/features/auth/presentation/pages/forgot_password/forgot_
 import 'package:rash7ly/features/auth/presentation/pages/login/login_screen.dart';
 import 'package:rash7ly/features/auth/presentation/pages/otp/otp_screen.dart';
 import 'package:rash7ly/features/auth/presentation/pages/register/register_screen.dart';
-import 'package:rash7ly/features/home/model/Best_destinations.dart';
+import 'package:rash7ly/features/home/bloc/home_bloc.dart';
+import 'package:rash7ly/features/home/data/model/Best_destinations.dart';
+import 'package:rash7ly/features/home/data/model/place_model.dart';
+import 'package:rash7ly/features/home/data/repo/home_repo.dart';
 import 'package:rash7ly/features/home/presentation/card_details/card_details.dart';
 import 'package:rash7ly/features/categories/categories_screen.dart';
 import 'package:rash7ly/features/categories/category_type_screen.dart';
@@ -81,16 +84,32 @@ class Routes {
           child: OtpScreen(),
         ),
       ),
-      GoRoute(path: home, builder: (context, state) => HomeScreen()),
-      GoRoute(path: search, builder: (context, state) => SearchScreen()),
+      //! by ibrahim
+      GoRoute(
+        path: home,
+        builder: (context, state) => BlocProvider(
+          create: (context) =>
+              HomeBloc(authRepo: AuthRepository(), homeRepo: HomeRepo())
+                ..add(GetUserEvent())
+                ..add(GetAllPlacesEvent()),
+          child: HomeScreen(),
+        ),
+      ),
+      GoRoute(
+        path: search,
+        builder: (context, state) => BlocProvider(
+          create: (context) =>
+              HomeBloc(authRepo: AuthRepository(), homeRepo: HomeRepo())
+                ..add(GetUserEvent())
+                ..add(GetAllPlacesEvent()),
+          child: SearchScreen(),
+        ),
+      ),
       GoRoute(
         path: categories,
         builder: (context, state) => CategoriesScreen(),
       ),
-      
 
-
-      
       GoRoute(
         path: categoryType,
         builder: (context, state) {
@@ -104,17 +123,26 @@ class Routes {
       ),
       GoRoute(path: profile, builder: (context, state) => ProfileScreen()),
       //! by ibrahim
-      GoRoute(path: mainScreen, builder: (context, state) => MainScreen()),
       GoRoute(
-  path: Routes.cardDetails,
-  builder: (context, state) {
-    final data = state.extra as Map;
-    final BestDestination card = data["card"];
-    final String tag = data["tag"];
+        path: mainScreen,
+        builder: (context, state) => BlocProvider(
+          create: (context) =>
+              HomeBloc(authRepo: AuthRepository(), homeRepo: HomeRepo())
+                ..add(GetUserEvent())
+                ..add(GetAllPlacesEvent()),
+          child: MainScreen(),
+        ),
+      ),
+      GoRoute(
+        path: Routes.cardDetails,
 
-    return CardDetails(card: card, tag: tag);
-  },
-),
+        builder: (context, state) {
+          final data = state.extra as Map;
+          final PlaceModel card = data["card"];
+
+          return CardDetails(card: card);
+        },
+      ),
 
       GoRoute(
         path: savedRecommendations,

@@ -3,16 +3,16 @@ import 'package:gap/gap.dart';
 import 'package:rash7ly/components/buttons/main_button.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
-import 'package:rash7ly/features/home/model/Best_destinations.dart';
-import 'package:rash7ly/features/home/model/review.dart';
-import 'package:rash7ly/features/home/model/saved_recomm/saved_service.dart';
+import 'package:rash7ly/features/home/data/model/place_model.dart';
+import 'package:rash7ly/features/home/data/model/review.dart';
+import 'package:rash7ly/features/home/data/model/saved_recomm/saved_service.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
 class CardDetails extends StatefulWidget {
-  final BestDestination card;
-  final String tag;
+  final PlaceModel card;
+  // final String tag;
 
-  const CardDetails({super.key, required this.card, required this.tag});
+  const CardDetails({super.key, required this.card});
 
   @override
   State<CardDetails> createState() => _CardDetailsState();
@@ -24,7 +24,7 @@ class _CardDetailsState extends State<CardDetails> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    final reviews = ReviewService.getReviews(widget.card.name);
+    final reviews = ReviewService.getReviews(widget.card.title ?? "unKnown");
 
     return Scaffold(
       bottomNavigationBar: SafeArea(
@@ -33,9 +33,8 @@ class _CardDetailsState extends State<CardDetails> {
           child: MainButton(
             text: 'Show on map',
             onPressed: () {
-              //مش عارفه اعملها بقي 
-                MapsLauncher.launchQuery(widget.card.city);
-              
+              //مش عارفه اعملها بقي
+              MapsLauncher.launchQuery(widget.card.location ?? 'Unknown');
             },
           ),
         ),
@@ -52,18 +51,34 @@ class _CardDetailsState extends State<CardDetails> {
               width: double.infinity,
               child: Stack(
                 children: [
-                  Hero(
-                    tag: widget.tag,
-                    child: Image.asset(
-                      widget.card.image,
-                      fit: BoxFit.cover,
-                      height: double.infinity,
-                      width: double.infinity,
-                    ),
-                  ),
+                  // Hero(
+                  //   tag: widget.tag,
+                  //   child: Image.asset(
+                  //     widget.card.image,
+                  //     fit: BoxFit.cover,
+                  //     height: double.infinity,
+                  //     width: double.infinity,
+                  //   ),
+                  // ),
+                  widget.card.gallery != null && widget.card.gallery!.isNotEmpty
+                      ? Image.network(
+                          widget.card.gallery![0],
+                          fit: BoxFit.cover,
+                          height: double.infinity,
+                          width: double.infinity,
+                        )
+                      : Image.asset(
+                          AppAssets.error,
+                          fit: BoxFit.cover,
+                          height: double.infinity,
+                          width: double.infinity,
+                        ),
                   SafeArea(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 8,
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -117,7 +132,7 @@ class _CardDetailsState extends State<CardDetails> {
                       children: [
                         Expanded(
                           child: Text(
-                            widget.card.name,
+                            widget.card.title ?? 'Unknown Title',
                             style: const TextStyle(
                               fontSize: 26,
                               fontWeight: FontWeight.bold,
@@ -142,7 +157,7 @@ class _CardDetailsState extends State<CardDetails> {
                               ),
                               const SizedBox(width: 5),
                               Text(
-                                widget.card.rate.toString(),
+                                widget.card.rating?.toStringAsFixed(1) ?? '0.0',
                                 style: const TextStyle(color: Colors.white),
                               ),
                             ],
@@ -161,7 +176,7 @@ class _CardDetailsState extends State<CardDetails> {
                           ),
                           const SizedBox(width: 6),
                           Text(
-                            widget.card.city,
+                            widget.card.location ?? 'Unknown Location',
                             style: const TextStyle(color: Colors.grey),
                           ),
                           const SizedBox(width: 15),
@@ -171,7 +186,7 @@ class _CardDetailsState extends State<CardDetails> {
                           ),
                           const SizedBox(width: 6),
                           Text(
-                            widget.card.category,
+                            widget.card.category ?? 'Unknown Category',
                             style: const TextStyle(color: Colors.grey),
                           ),
                         ],
@@ -203,12 +218,14 @@ class _CardDetailsState extends State<CardDetails> {
                       height: 85,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
-                        itemCount: 5,
+                        itemCount: widget.card.gallery?.length ?? 0,
                         separatorBuilder: (_, __) => const SizedBox(width: 12),
                         itemBuilder: (context, index) => ClipRRect(
                           borderRadius: BorderRadius.circular(12),
-                          child: Image.asset(
-                            widget.card.image,
+                          child: Image.network(
+                            widget.card.gallery!.isNotEmpty
+                                ? widget.card.gallery![index]
+                                : '',
                             width: 110,
                             height: 85,
                             fit: BoxFit.cover,
@@ -229,8 +246,14 @@ class _CardDetailsState extends State<CardDetails> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
                         FacilityIcon(icon: Icons.wifi, title: "Wi-Fi"),
-                        FacilityIcon(icon: Icons.local_parking, title: "Parking"),
-                        FacilityIcon(icon: Icons.restaurant, title: "Restaurant"),
+                        FacilityIcon(
+                          icon: Icons.local_parking,
+                          title: "Parking",
+                        ),
+                        FacilityIcon(
+                          icon: Icons.restaurant,
+                          title: "Restaurant",
+                        ),
                         FacilityIcon(icon: Icons.pool, title: "Pool"),
                       ],
                     ),
@@ -292,7 +315,7 @@ class _CardDetailsState extends State<CardDetails> {
                       onPressed: () {
                         if (commentController.text.isNotEmpty) {
                           ReviewService.addReview(
-                            widget.card.name,
+                            widget.card.title ?? 'Unknown Title',
                             "You",
                             commentController.text,
                           );
@@ -338,8 +361,8 @@ class _CardDetailsState extends State<CardDetails> {
           child: Center(
             child: Text(
               isSaved
-                  ? "${widget.card.name} saved!"
-                  : "${widget.card.name} removed!",
+                  ? "${widget.card.title ?? 'Unknown Title'} saved!"
+                  : "${widget.card.title ?? 'Unknown Title'} removed!",
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,

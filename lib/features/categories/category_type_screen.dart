@@ -3,7 +3,7 @@ import 'package:rash7ly/components/appbar/arrow_back_app_bar.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
-import 'package:rash7ly/features/home/model/place_class.dart';
+import 'package:rash7ly/features/home/data/model/place_model.dart';
 import 'package:rash7ly/features/home/widgets/place_item.dart';
 
 class CategoryTypeScreen extends StatelessWidget {
@@ -13,7 +13,7 @@ class CategoryTypeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Placeclass> places = Placeclass.savedplaces;
+    final List<PlaceModel> places = PlaceModel.savedplaces;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.whiteColor,
@@ -41,7 +41,8 @@ class CategoryTypeScreen extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return PlaceItem(
-                  image: places[index].image ?? AppAssets.error,
+                  //! by ibrahim
+                  image: places[index].gallery?[0] ?? AppAssets.error,
                   title: places[index].title ?? 'Unknown',
                   location: places[index].location ?? 'Unknown',
                   category: places[index].location ?? 'Unknown',

@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart' as fb;
+import 'package:rash7ly/features/home/data/model/place_model.dart';
 
 class UserModel {
   final String id;
   final String email;
   final String name;
-  final String? photoUrl;
+  String? photoUrl;
   final String? provider; // e.g. "google", "facebook", "twitter", "email"
+  final List<PlaceModel>? savedPlaces;
 
   UserModel({
     required this.id,
@@ -13,6 +15,7 @@ class UserModel {
     required this.name,
     this.photoUrl,
     this.provider,
+    this.savedPlaces,
   });
 
   factory UserModel.fromMap(Map<String, dynamic> m) => UserModel(

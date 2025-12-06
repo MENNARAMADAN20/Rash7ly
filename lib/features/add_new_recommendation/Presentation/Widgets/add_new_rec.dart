@@ -15,26 +15,24 @@ class AddNewRec extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
-        if (currentIndex == 0) {
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            backgroundColor: Colors.white,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-            ),
-            builder: (context) {
-              // Dependencies injection
-              final cloudSvc = CloudinaryService();
-              final repo = AddRecommendationRepo(cloudinary: cloudSvc);
+        showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.white,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+          ),
+          builder: (context) {
+            // Dependencies injection
+            final cloudSvc = CloudinaryService();
+            final repo = AddRecommendationRepo(cloudinary: cloudSvc);
 
-              return BlocProvider(
-                create: (_) => AddRecBloc(repo),
-                child: const AddRecFormBody(),
-              );
-            },
-          );
-        }
+            return BlocProvider(
+              create: (_) => AddRecBloc(repo),
+              child: const AddRecFormBody(),
+            );
+          },
+        );
       },
       backgroundColor: AppColors.blueColor,
       shape: const CircleBorder(),

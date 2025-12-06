@@ -2,37 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
 import 'package:rash7ly/core/routes/routes.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
-import 'package:rash7ly/features/home/model/saved_recomm/saved_service.dart';
-import 'package:rash7ly/features/home/model/Best_destinations.dart';
+import 'package:rash7ly/features/home/data/model/place_model.dart';
+import 'package:rash7ly/features/home/data/model/saved_recomm/saved_service.dart';
+import 'package:rash7ly/features/home/widgets/impty_widget.dart';
 
 class SavedRecommendationsHomeSection extends StatelessWidget {
   const SavedRecommendationsHomeSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<BestDestination>>(
+    return StreamBuilder<List<PlaceModel>>(
       stream: SavedService.stream,
       builder: (context, snapshot) {
         final saved = snapshot.data ?? [];
 
         if (saved.isEmpty) {
-          return Padding(
-            padding: const EdgeInsets.only(left: 85, top: 10),
-            child:Column(
-              
-              children: [
-                Lottie.asset('assets/images/bear.json', width: 200, height: 150),
-                Text('No Saved Recommended Yet',style: TextStyle(color: AppColors.greyColor),)
-              ],
-            )
-            
-
-          );
+          return ImptyWidget();
         }
 
         return SizedBox(
@@ -52,11 +41,10 @@ class SavedRecommendationsHomeSection extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(BuildContext context, BestDestination destination) {
+  Widget _buildCard(BuildContext context, PlaceModel destination) {
     return GestureDetector(
       onTap: () {
-        context.push(Routes.cardDetails,
-            extra: {"card": destination, "tag": destination.image});
+        context.push(Routes.cardDetails, extra: {"card": destination});
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
@@ -70,24 +58,25 @@ class SavedRecommendationsHomeSection extends StatelessWidget {
               blurRadius: 6,
               spreadRadius: 1,
               offset: const Offset(-1, 3),
-            )
+            ),
           ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(15)),
-              child: Hero(
-                tag: destination.image,
-                child: Image.asset(
-                  destination.image,
-                  height: 286,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(15),
               ),
+              // child: Hero(
+              //   tag: 'saved_${destination.image}',
+              //   child: Image.asset(
+              //     destination.image,
+              //     height: 286,
+              //     width: double.infinity,
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),
             ),
             Padding(
               padding: const EdgeInsets.all(10),
@@ -98,7 +87,7 @@ class SavedRecommendationsHomeSection extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          destination.name,
+                          destination.title ?? 'No Title',
                           style: TextStyles.getSize16(
                             fontWeight: FontWeight.w500,
                           ),
@@ -106,11 +95,10 @@ class SavedRecommendationsHomeSection extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          const Icon(Icons.star,
-                              size: 18, color: Colors.amber),
+                          const Icon(Icons.star, size: 18, color: Colors.amber),
                           const Gap(1.5),
                           Text(
-                            destination.rate.toString(),
+                            destination.rating?.toStringAsFixed(1) ?? '0.0',
                             style: TextStyles.getSize16(),
                           ),
                         ],
@@ -129,7 +117,7 @@ class SavedRecommendationsHomeSection extends StatelessWidget {
                                 SvgPicture.asset(AppAssets.locationIconSvg),
                                 const Gap(2),
                                 Text(
-                                  destination.category,
+                                  destination.category ?? 'Unknown Category',
                                   style: TextStyles.getSize12(
                                     color: AppColors.greyColor,
                                   ),
@@ -142,7 +130,7 @@ class SavedRecommendationsHomeSection extends StatelessWidget {
                                 SvgPicture.asset(AppAssets.locationIconSvg),
                                 const Gap(2),
                                 Text(
-                                  destination.city,
+                                  destination.location ?? 'Unknown Location',
                                   style: TextStyles.getSize12(
                                     color: AppColors.greyColor,
                                   ),
