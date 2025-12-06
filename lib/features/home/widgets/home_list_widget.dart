@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +8,7 @@ import 'package:rash7ly/core/routes/routes.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:rash7ly/features/home/bloc/home_bloc.dart';
 import 'package:rash7ly/features/home/data/model/place_model.dart';
 
 class HomeListWidget extends StatefulWidget {
@@ -52,7 +54,9 @@ class _HomeListWidgetState extends State<HomeListWidget> {
 Widget _buildCard(BuildContext context, PlaceModel place) {
   return GestureDetector(
     onTap: () {
-      context.push(Routes.cardDetails, extra: {"card": place});
+      context.push(Routes.cardDetails, extra: {"card": place}).then((value) {
+        context.read<HomeBloc>().add(LoadSavedRecommendationsEvent());
+      });
     },
 
     child: Container(

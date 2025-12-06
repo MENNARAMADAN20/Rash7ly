@@ -39,7 +39,7 @@ class SearchGridView extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            pushTo(context, Routes.cardDetails, {"card": filtered[index]});
+            pushTo(context, Routes.cardDetails, {"card": filtered[index]},);
           },
           child: Container(
             padding: EdgeInsets.all(8),

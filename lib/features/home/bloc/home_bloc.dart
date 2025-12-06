@@ -16,6 +16,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final HomeRepo _homeRepo;
 
   List<PlaceModel>? places = [];
+  List<PlaceModel> savedPlaces = [];
+  Set<String> savedPlaceIds = {};
+
+  /// Get places where BestDestinations is true
+  List<PlaceModel> get bestDestinations =>
+      places?.where((p) => p.bestDestinations).toList() ?? [];
+
+  /// Get places where PopularPackage is true
+  List<PlaceModel> get popularPackages =>
+      places?.where((p) => p.popularPackage).toList() ?? [];
 
   HomeBloc({required AuthRepository authRepo, required HomeRepo homeRepo})
     : _authRepo = authRepo,
@@ -67,5 +77,72 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         emit(GetAllPlacesFailedState(e.toString()));
       }
     });
+
+    on<LoadSavedRecommendationsEvent>((event, emit) async {
+      try {
+        log('LoadSavedRecommendationsEvent: started');
+        emit(SavedRecommendationsLoadingState());
+
+        // Get saved IDs from user
+        final savedIds = await _authRepo.getSavedRecommendationIds();
+        log(
+          'LoadSavedRecommendationsEvent: got ${savedIds.length} savedIds: $savedIds',
+        );
+        savedPlaceIds = savedIds.toSet();
+
+        // Fetch places by IDs
+        savedPlaces = [];
+        for (final id in savedIds) {
+          log('LoadSavedRecommendationsEvent: fetching place with id: $id');
+          final place = await _homeRepo.getPlaceById(id);
+          if (place != null) {
+            savedPlaces.add(place);
+            log(
+              'LoadSavedRecommendationsEvent: added place ${place.title} to savedPlaces',
+            );
+          } else {
+            log('LoadSavedRecommendationsEvent: place was NULL for id: $id');
+          }
+        }
+
+        log(
+          'LoadSavedRecommendationsEvent: emitting SavedRecommendationsSuccessState with ${savedPlaces.length} places',
+        );
+        emit(SavedRecommendationsSuccessState(savedPlaces));
+      } catch (e) {
+        log('failed to load saved recommendations: $e');
+        emit(SavedRecommendationsFailedState(e.toString()));
+      }
+    });
+
+    on<ToggleSaveRecommendationEvent>((event, emit) async {
+      try {
+        final placeId = event.place.id;
+        if (placeId == null) return;
+
+        await _authRepo.toggleSavedRecommendation(placeId);
+
+        final wasSaved = savedPlaceIds.contains(placeId);
+        if (wasSaved) {
+          savedPlaceIds.remove(placeId);
+          savedPlaces.removeWhere((p) => p.id == placeId);
+        } else {
+          savedPlaceIds.add(placeId);
+          savedPlaces.add(event.place);
+        }
+
+        emit(ToggleSaveSuccessState(isSaved: !wasSaved, placeId: placeId));
+        emit(SavedRecommendationsSuccessState(List.from(savedPlaces)));
+      } catch (e) {
+        log('failed to toggle saved recommendation: $e');
+        emit(SavedRecommendationsFailedState(e.toString()));
+      }
+    });
+  }
+
+  /// Check if a place is saved (for UI)
+  bool isPlaceSaved(String? placeId) {
+    if (placeId == null) return false;
+    return savedPlaceIds.contains(placeId);
   }
 }

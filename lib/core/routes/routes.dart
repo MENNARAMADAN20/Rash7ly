@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rash7ly/features/Profile/presentation/profile_page/edit_profile/edit_profile.dart';
@@ -20,8 +21,9 @@ import 'package:rash7ly/features/saved_places/savedplaces_screen.dart';
 import 'package:rash7ly/features/search/presentation/pages/search_screen.dart';
 import 'package:rash7ly/features/main/main_screen.dart';
 import 'package:rash7ly/features/onboarding/onboarding.dart';
-import 'package:rash7ly/features/saved_recommendations/saved_recommendations.dart';
 import 'package:rash7ly/features/splash/splash_screen.dart';
+import 'package:rash7ly/features/saved_recommendations/saved_recommendations_screen.dart';
+import 'package:rash7ly/main.dart'; // for routeObserver
 
 class Routes {
   static const String splash = '/';
@@ -91,7 +93,8 @@ class Routes {
           create: (context) =>
               HomeBloc(authRepo: AuthRepository(), homeRepo: HomeRepo())
                 ..add(GetUserEvent())
-                ..add(GetAllPlacesEvent()),
+                ..add(GetAllPlacesEvent())
+                ..add(LoadSavedRecommendationsEvent()),
           child: HomeScreen(),
         ),
       ),
@@ -101,7 +104,8 @@ class Routes {
           create: (context) =>
               HomeBloc(authRepo: AuthRepository(), homeRepo: HomeRepo())
                 ..add(GetUserEvent())
-                ..add(GetAllPlacesEvent()),
+                ..add(GetAllPlacesEvent())
+                ..add(LoadSavedRecommendationsEvent()),
           child: SearchScreen(),
         ),
       ),
@@ -114,12 +118,26 @@ class Routes {
         path: categoryType,
         builder: (context, state) {
           final String title = state.extra.toString();
-          return CategoryTypeScreen(title: title);
+          return BlocProvider(
+            create: (context) =>
+                HomeBloc(authRepo: AuthRepository(), homeRepo: HomeRepo())
+                  ..add(GetUserEvent())
+                  ..add(GetAllPlacesEvent())
+                  ..add(LoadSavedRecommendationsEvent()),
+            child: CategoryTypeScreen(title: title),
+          );
         },
       ),
       GoRoute(
         path: savedplaces,
-        builder: (context, state) => SavedplacesScreen(),
+        builder: (context, state) => BlocProvider(
+          create: (context) =>
+              HomeBloc(authRepo: AuthRepository(), homeRepo: HomeRepo())
+                ..add(GetUserEvent())
+                ..add(GetAllPlacesEvent())
+                ..add(LoadSavedRecommendationsEvent()),
+          child: SavedplacesScreen(),
+        ),
       ),
       GoRoute(path: profile, builder: (context, state) => ProfileScreen()),
       //! by ibrahim
@@ -129,18 +147,25 @@ class Routes {
           create: (context) =>
               HomeBloc(authRepo: AuthRepository(), homeRepo: HomeRepo())
                 ..add(GetUserEvent())
-                ..add(GetAllPlacesEvent()),
+                ..add(GetAllPlacesEvent())
+                ..add(LoadSavedRecommendationsEvent()),
           child: MainScreen(),
         ),
       ),
       GoRoute(
         path: Routes.cardDetails,
-
         builder: (context, state) {
           final data = state.extra as Map;
           final PlaceModel card = data["card"];
 
-          return CardDetails(card: card);
+          return BlocProvider(
+            create: (context) =>
+                HomeBloc(authRepo: AuthRepository(), homeRepo: HomeRepo())
+                  ..add(GetUserEvent())
+                  ..add(GetAllPlacesEvent())
+                  ..add(LoadSavedRecommendationsEvent()),
+            child: CardDetails(card: card),
+          );
         },
       ),
 
@@ -148,10 +173,7 @@ class Routes {
         path: savedRecommendations,
         builder: (context, state) => SavedRecommendationsScreen(),
       ),
-      GoRoute(
-        path: editprofile,
-        builder: (context, state) => EditProfile(),
-      ),
+      GoRoute(path: editprofile, builder: (context, state) => EditProfile()),
     ],
   );
 }

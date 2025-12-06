@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart' as fb;
-import 'package:rash7ly/features/home/data/model/place_model.dart';
 
 class UserModel {
   final String id;
@@ -7,7 +6,7 @@ class UserModel {
   final String name;
   String? photoUrl;
   final String? provider; // e.g. "google", "facebook", "twitter", "email"
-  final List<PlaceModel>? savedPlaces;
+  final List<String> savedRecommendationIds;
 
   UserModel({
     required this.id,
@@ -15,7 +14,7 @@ class UserModel {
     required this.name,
     this.photoUrl,
     this.provider,
-    this.savedPlaces,
+    this.savedRecommendationIds = const [],
   });
 
   factory UserModel.fromMap(Map<String, dynamic> m) => UserModel(
@@ -24,6 +23,9 @@ class UserModel {
     name: m['name'] ?? '',
     photoUrl: m['photoUrl'],
     provider: m['provider'],
+    savedRecommendationIds: List<String>.from(
+      m['savedRecommendationIds'] ?? [],
+    ),
   );
 
   Map<String, dynamic> toMap() => {
@@ -32,6 +34,7 @@ class UserModel {
     'name': name,
     'photoUrl': photoUrl,
     'provider': provider,
+    'savedRecommendationIds': savedRecommendationIds,
   };
 
   // convenience factory for Firebase User

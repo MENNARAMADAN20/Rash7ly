@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rash7ly/components/appbar/arrow_back_app_bar.dart';
-import 'package:rash7ly/core/constants/app_assets.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/categories/bloc/category_bloc.dart';
 import 'package:rash7ly/features/categories/data/repo/category_repo.dart';
-import 'package:rash7ly/features/home/widgets/place_item.dart';
+import 'package:rash7ly/features/categories/presentaion/widgets/place_item.dart';
 
 class CategoryTypeScreen extends StatelessWidget {
   const CategoryTypeScreen({super.key, required this.title});
@@ -16,8 +15,9 @@ class CategoryTypeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CategoryBloc(categoryRepo: CategoryRepo())
-        ..add(GetPlacesByCategoryEvent(title)),
+      create: (context) =>
+          CategoryBloc(categoryRepo: CategoryRepo())
+            ..add(GetPlacesByCategoryEvent(title)),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.whiteColor,
@@ -70,14 +70,7 @@ class CategoryTypeScreen extends StatelessWidget {
                         crossAxisCount: 2,
                       ),
                       itemBuilder: (context, index) {
-                        return PlaceItem(
-                          image: places[index].gallery?.isNotEmpty == true
-                              ? places[index].gallery![0]
-                              : AppAssets.error,
-                          title: places[index].title ?? 'Unknown',
-                          location: places[index].location ?? 'Unknown',
-                          category: places[index].category ?? 'Unknown',
-                        );
+                        return PlaceItem(place: places[index]);
                       },
                     ),
                   );

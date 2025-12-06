@@ -3,52 +3,70 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rash7ly/components/appbar/arrow_back_app_bar.dart';
 import 'package:rash7ly/core/constants/app_assets.dart';
 import 'package:rash7ly/core/routes/routes.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
+import 'package:rash7ly/features/auth/data/repo/auth_repo.dart';
 import 'package:rash7ly/features/home/bloc/home_bloc.dart';
 import 'package:rash7ly/features/home/data/model/place_model.dart';
+import 'package:rash7ly/features/home/data/repo/home_repo.dart';
 import 'package:rash7ly/features/home/widgets/impty_widget.dart';
 
-class SavedRecommendationsHomeSection extends StatelessWidget {
-  const SavedRecommendationsHomeSection({super.key});
+class SavedRecommendationsScreen extends StatelessWidget {
+  const SavedRecommendationsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
-      buildWhen: (previous, current) =>
-          current is SavedRecommendationsLoadingState ||
-          current is SavedRecommendationsSuccessState ||
-          current is SavedRecommendationsFailedState,
-      builder: (context, state) {
-        if (state is SavedRecommendationsLoadingState) {
-          return const SizedBox(
-            height: 420,
-            child: Center(child: CircularProgressIndicator()),
-          );
-        }
+    return BlocProvider(
+      create: (context) =>
+          HomeBloc(authRepo: AuthRepository(), homeRepo: HomeRepo())
+            ..add(GetUserEvent())
+            ..add(GetAllPlacesEvent())
+            ..add(LoadSavedRecommendationsEvent()),
+      child: Scaffold(
+        backgroundColor: AppColors.whiteColor,
+        appBar: AppBar(
+          backgroundColor: AppColors.whiteColor,
+          leadingWidth: 60,
+          leading: ArrowBackAppBar(),
+          title: Text(
+            "Saved Recommendations",
+            style: TextStyles.getSize18(fontWeight: FontWeight.w600),
+          ),
+          centerTitle: true,
+        ),
+        body: SafeArea(
+          child: BlocBuilder<HomeBloc, HomeState>(
+            buildWhen: (previous, current) =>
+                current is SavedRecommendationsLoadingState ||
+                current is SavedRecommendationsSuccessState ||
+                current is SavedRecommendationsFailedState,
+            builder: (context, state) {
+              if (state is SavedRecommendationsLoadingState) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-        final saved = context.read<HomeBloc>().savedPlaces;
+              final savedPlaces = context.read<HomeBloc>().savedPlaces;
 
-        if (saved.isEmpty) {
-          return ImptyWidget();
-        }
+              if (savedPlaces.isEmpty) {
+                return Center(child: ImptyWidget());
+              }
 
-        return SizedBox(
-          height: 420,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            itemCount: saved.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 20),
-            itemBuilder: (context, index) {
-              final destination = saved[index];
-              return _buildCard(context, destination);
+              return ListView.separated(
+                padding: const EdgeInsets.all(20),
+                itemCount: savedPlaces.length,
+                separatorBuilder: (_, __) => const SizedBox(height: 20),
+                itemBuilder: (context, index) {
+                  final destination = savedPlaces[index];
+                  return _buildCard(context, destination);
+                },
+              );
             },
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
@@ -62,8 +80,6 @@ class SavedRecommendationsHomeSection extends StatelessWidget {
         });
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        width: 268,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
@@ -87,12 +103,12 @@ class SavedRecommendationsHomeSection extends StatelessWidget {
                 destination.gallery?.isNotEmpty == true
                     ? destination.gallery![0]
                     : '',
-                height: 280,
+                height: 200,
                 width: double.infinity,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Container(
-                    height: 286,
+                    height: 200,
                     width: double.infinity,
                     color: Colors.grey.shade200,
                     child: const Icon(Icons.image_not_supported, size: 50),

@@ -8,9 +8,6 @@ import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/auth/data/repo/auth_repo.dart';
 import 'package:rash7ly/features/home/bloc/home_bloc.dart';
-// import 'package:rash7ly/features/home/data/model/Best_destinations.dart';
-import 'package:rash7ly/features/home/data/model/place_model.dart';
-import 'package:rash7ly/features/home/data/model/saved_recomm/saved_service.dart';
 import 'package:rash7ly/features/home/data/repo/home_repo.dart';
 import 'package:rash7ly/features/home/widgets/home_list_widget.dart';
 import 'package:rash7ly/features/home/widgets/home_text_row.dart';
@@ -71,7 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
       create: (context) =>
           HomeBloc(authRepo: AuthRepository(), homeRepo: HomeRepo())
             ..add(GetUserEvent())
-            ..add(GetAllPlacesEvent()),
+            ..add(GetAllPlacesEvent())
+            ..add(LoadSavedRecommendationsEvent()),
       child: Scaffold(
         backgroundColor: AppColors.whiteColor,
         body: BlocConsumer<HomeBloc, HomeState>(
@@ -112,9 +110,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: CircularProgressIndicator(),
                                 ),
                               )
-                            : isimpty
+                            : cubit.bestDestinations.isEmpty
                             ? ImptyWidget()
-                            : HomeListWidget(places: cubit.places),
+                            : HomeListWidget(places: cubit.bestDestinations),
                         const Gap(20),
                         _animatedCardWrapper(
                           HomeTextRow(RowText: 'Saved Recommendations'),
@@ -122,14 +120,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Gap(5),
 
-                        StreamBuilder<List<PlaceModel>>(
-                          stream: SavedService.stream,
-                          builder: (context, snapshot) {
-                            return _animatedCardWrapper(
-                              const SavedRecommendationsHomeSection(),
-                              2,
-                            );
-                          },
+                        _animatedCardWrapper(
+                          const SavedRecommendationsHomeSection(),
+                          2,
                         ),
 
                         const Gap(10),
@@ -140,7 +133,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         Gap(5),
 
                         _animatedCardWrapper(
-                          HomeListWidget(places: cubit.places),
+                          cubit.popularPackages.isEmpty
+                              ? ImptyWidget()
+                              : HomeListWidget(places: cubit.popularPackages),
                           5,
                         ),
                       ],
