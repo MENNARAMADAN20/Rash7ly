@@ -13,6 +13,8 @@ class PlaceModel {
   final String? auther_id;
   final Timestamp? createdAt;
   final List<ReviewModel>? reviews;
+  final bool bestDestinations;
+  final bool popularPackage;
 
   PlaceModel({
     this.id,
@@ -25,6 +27,8 @@ class PlaceModel {
     this.auther_id,
     this.reviews,
     this.createdAt,
+    this.bestDestinations = false,
+    this.popularPackage = false,
   });
 
   static List<PlaceModel> savedplaces = [

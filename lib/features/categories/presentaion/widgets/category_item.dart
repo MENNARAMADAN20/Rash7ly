@@ -52,14 +52,6 @@ class CategoryItem extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Gap(5),
-            Text(
-              'places: ${count ?? 'unkown'}',
-              style: TextStyles.getSize10(
-                color: AppColors.blueColor,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
           ],
         ),
       ),

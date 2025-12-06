@@ -10,3 +10,15 @@ sealed class HomeEvent extends Equatable {
 final class GetUserEvent extends HomeEvent {}
 
 final class GetAllPlacesEvent extends HomeEvent {}
+
+// Saved Recommendations Events
+final class LoadSavedRecommendationsEvent extends HomeEvent {}
+
+final class ToggleSaveRecommendationEvent extends HomeEvent {
+  final PlaceModel place;
+
+  const ToggleSaveRecommendationEvent(this.place);
+
+  @override
+  List<Object> get props => [place];
+}

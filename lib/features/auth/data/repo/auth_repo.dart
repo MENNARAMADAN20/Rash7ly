@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb;
@@ -199,5 +201,69 @@ class AuthRepository {
     } catch (e) {
       throw Exception('Failed to reset password: $e');
     }
+  }
+
+  /// Toggle saved recommendation ID in Firestore
+  Future<void> toggleSavedRecommendation(String placeId) async {
+    log('toggleSavedRecommendation called with placeId: $placeId');
+
+    final user = _firebaseAuth.currentUser;
+    if (user == null) {
+      log('toggleSavedRecommendation: user is NULL - not authenticated!');
+      return;
+    }
+    log('toggleSavedRecommendation: user.uid = ${user.uid}');
+
+    final docRef = _firestore.collection('users').doc(user.uid);
+    final doc = await docRef.get();
+
+    if (!doc.exists) {
+      log('toggleSavedRecommendation: user document does NOT exist!');
+      return;
+    }
+    log('toggleSavedRecommendation: user document exists');
+
+    final savedIds = List<String>.from(
+      doc.data()?['savedRecommendationIds'] ?? [],
+    );
+    log('toggleSavedRecommendation: current savedIds = $savedIds');
+
+    if (savedIds.contains(placeId)) {
+      savedIds.remove(placeId);
+      log('toggleSavedRecommendation: REMOVED $placeId from list');
+    } else {
+      savedIds.add(placeId);
+      log('toggleSavedRecommendation: ADDED $placeId to list');
+    }
+
+    log(
+      'toggleSavedRecommendation: updating Firestore with savedIds = $savedIds',
+    );
+    await docRef.update({'savedRecommendationIds': savedIds});
+    log('toggleSavedRecommendation: Firestore update COMPLETE');
+  }
+
+  /// Get user's saved recommendation IDs
+  Future<List<String>> getSavedRecommendationIds() async {
+    log('getSavedRecommendationIds called');
+
+    final user = _firebaseAuth.currentUser;
+    if (user == null) {
+      log('getSavedRecommendationIds: user is NULL - not authenticated!');
+      return [];
+    }
+    log('getSavedRecommendationIds: user.uid = ${user.uid}');
+
+    final doc = await _firestore.collection('users').doc(user.uid).get();
+    if (!doc.exists) {
+      log('getSavedRecommendationIds: user document does NOT exist!');
+      return [];
+    }
+
+    final savedIds = List<String>.from(
+      doc.data()?['savedRecommendationIds'] ?? [],
+    );
+    log('getSavedRecommendationIds: returning savedIds = $savedIds');
+    return savedIds;
   }
 }

@@ -4,9 +4,9 @@ import 'package:rash7ly/core/constants/app_assets.dart';
 import 'package:rash7ly/core/utilis/app_colors.dart';
 import 'package:rash7ly/core/utilis/text_style.dart';
 import 'package:rash7ly/features/Profile/presentation/profile_page/profile_screen.dart';
-import 'package:rash7ly/features/categories/categories_screen.dart';
+import 'package:rash7ly/features/categories/presentaion/pages/categories_screen.dart';
 import 'package:rash7ly/features/home/presentation/home/home_screen.dart';
-import 'package:rash7ly/features/home/presentation/search/search_screen.dart';
+import 'package:rash7ly/features/search/presentation/pages/search_screen.dart';
 import 'package:rash7ly/features/add_new_recommendation/Presentation/Widgets/add_new_rec.dart';
 
 class MainScreen extends StatefulWidget {
